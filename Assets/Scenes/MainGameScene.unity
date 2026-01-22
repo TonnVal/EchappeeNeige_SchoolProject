@@ -337,6 +337,13 @@ MonoBehaviour:
   _actionMoveRight: {fileID: 5911487805920213146, guid: 5660861a0cf0c4a41810f66274578e17, type: 3}
   _actionCrouch: {fileID: -8188566876280346791, guid: 5660861a0cf0c4a41810f66274578e17, type: 3}
   _actionSlowDown: {fileID: -2329643534732877949, guid: 5660861a0cf0c4a41810f66274578e17, type: 3}
+  _currentLane:
+  - {fileID: 340972139}
+  - {fileID: 1473439334}
+  - {fileID: 650956321}
+  _slideDuration: 1
+  _isSliding: 0
+  _currentLaneIndex: 1
 --- !u!1 &506182920
 GameObject:
   m_ObjectHideFlags: 0

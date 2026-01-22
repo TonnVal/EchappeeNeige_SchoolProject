@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,16 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private InputActionReference _actionMoveRight;
     [SerializeField] private InputActionReference _actionCrouch;
     [SerializeField] private InputActionReference _actionSlowDown;
+
+    [Header("Slide Controller")]
+    [SerializeField] private Transform[] _currentLane;
+    [SerializeField] private float _slideDuration = 0.5f;
+
+    [Header("Debug")]
+    [SerializeField] private bool _isSliding;
+    [SerializeField] private int _currentLaneIndex = 1;
+
+    private Coroutine _slideCoroutine;
 
     private void OnEnable()
     {
@@ -21,17 +32,60 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (_actionMoveLeft.action.WasPerformedThisFrame())
         {
-            this.transform.position = new Vector3(10, 0, 0);
+            if (_isSliding)
+            {
+                StopCoroutine(_slideCoroutine);
+            }
+            
+            if (_currentLaneIndex == 0)
+            {
+                return;
+            }
+
+            _currentLaneIndex--;
+            _slideCoroutine = StartCoroutine(Coroutine_Slide(_currentLane[_currentLaneIndex]));
         }
 
         if (_actionMoveRight.action.WasPerformedThisFrame())
         {
-            this.transform.position = new Vector3(-10, 0, 0);
+            if (_isSliding)
+            {
+                StopCoroutine(_slideCoroutine);
+            }
+            
+            if (_currentLaneIndex == _currentLane.Length - 1)
+            {
+                return;
+            }
+
+            _currentLaneIndex++;
+            _slideCoroutine = StartCoroutine(Coroutine_Slide(_currentLane[_currentLaneIndex]));
         }
 
         if (_actionCrouch.action.WasPerformedThisFrame())
-        { 
-            this.transform.position = new Vector3(0, -5, 0); 
+        {
+            return;
         }
+    }
+
+    private IEnumerator Coroutine_Slide(Transform target)
+    {
+        _isSliding = true;
+        
+        var _slideTimer = 0f;
+        
+        while (_slideTimer < _slideDuration)
+        {
+
+            _slideTimer += Time.deltaTime;
+            var normalizedTime = Mathf.Clamp01(_slideTimer / _slideDuration);
+            var targetPosition = new Vector3 (target.position.x, transform.position.y, transform.position.z);
+
+            transform.position = Vector3.Lerp(transform.position, targetPosition, normalizedTime);
+        
+            yield return null;
+        }
+        
+        _isSliding = false;
     }
 }
