@@ -84,10 +84,11 @@ public class PlayerMovementController : MonoBehaviour
         // Loop who runs till the timer is not equal to the slide's duration.
         while (_slideTimer < _slideDuration)
         {
+            // As many movements, two (or three) components are needed : distance and velocity (and speed).
 
-            // _slideTimer increase as time flies.
+            // _slideTimer increase as time flies (= velocity).
             // Set a variable to normalize time with a value between 0 and 1 to avoid potential errors.
-            // Set the target position with the x position of the coroutine's argument -> "target".
+            // Set the target position with the x position of the coroutine's argument -> "target" (= distance).
             _slideTimer += Time.deltaTime;
             var normalizedTime = Mathf.Clamp01(_slideTimer / _slideDuration);
             var targetPosition = new Vector3 (target.position.x, transform.position.y, transform.position.z);
