@@ -10,7 +10,10 @@ public class ObstaclesGenerator : MonoBehaviour
 
     [Header("Prefabs")]
     // Give access to game objects with ChunkController component.
-    [SerializeField] ChunkController[] _chunkPrefabs;
+    [SerializeField] ChunkController[] _chunkGreenPrefabs;
+    [SerializeField] ChunkController[] _chunkBluePrefabs;
+    [SerializeField] ChunkController[] _chunkRedPrefabs;
+    [SerializeField] ChunkController[] _chunkBlackPrefabs;
 
     // Readonly initialize just once at the game start.
     private readonly List<ChunkController> _activeChunks = new List<ChunkController>();
@@ -49,7 +52,7 @@ public class ObstaclesGenerator : MonoBehaviour
 
     private void AddChunk(Vector3 position)
     {
-        ChunkController chunk = Instantiate(_chunkPrefabs[0], transform);
+        ChunkController chunk = Instantiate(_chunkGreenPrefabs[0], transform);
         chunk.transform.position = position;
         // Add chunk instantiation to _activeChunks list.
         _activeChunks.Add(chunk);
