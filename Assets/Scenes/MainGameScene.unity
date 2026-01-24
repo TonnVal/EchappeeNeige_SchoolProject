@@ -313,7 +313,7 @@ Transform:
   m_GameObject: {fileID: 427117939}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -0}
+  m_LocalPosition: {x: -0, y: 0.25, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -489,7 +489,6 @@ MonoBehaviour:
   _behindChunksCount: 1
   _chunkPrefabs:
   - {fileID: 2845556255692494713, guid: 40d9d4c5ba045904faf072a6cc8d9054, type: 3}
-  - {fileID: 351353516870991492, guid: e31719aa81a08c24e8b88d8653113843, type: 3}
 --- !u!1 &1901230942
 GameObject:
   m_ObjectHideFlags: 0
