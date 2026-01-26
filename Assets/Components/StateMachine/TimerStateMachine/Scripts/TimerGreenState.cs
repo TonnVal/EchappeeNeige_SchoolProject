@@ -12,7 +12,7 @@ namespace Components.StateMachine.TimerStateMachine.Scripts
         
         public override void UpdateState(TimerStateManager timer)
         {
-            if(timer._constantTimer > 60f)
+            if(timer._realTime > 60f)
             {
                 GameEventService.OnTimerGreenUpdated?.Invoke(false);
                 timer.SwitchState(timer.blueTimer);

@@ -4,16 +4,19 @@ using UnityEngine;
 public class UIScore : MonoBehaviour
 {
     [SerializeField] private TMP_Text _scoreText;
-    [SerializeField] private float _currentScore;
 
-    private void Update()
+    private void Start()
     {
-        increaseScore();
+        GameEventService.HandleTimerForScore += SetScore;
     }
 
-    private void increaseScore()
+    private void OnDestroy()
     {
-        _currentScore += 10 * Time.deltaTime;
-        _scoreText.text = "Score: " + _currentScore.ToString("0");
+        GameEventService.HandleTimerForScore -= SetScore;
+    }
+
+    private void SetScore(float score)
+    {
+        _scoreText.text = "Score: " + score.ToString("0");
     }
 }

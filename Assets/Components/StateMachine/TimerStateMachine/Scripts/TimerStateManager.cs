@@ -16,7 +16,7 @@ namespace Components.StateMachine.TimerStateMachine.Scripts
         [SerializeField] public int _scoreMultiplier;
         
         [Header("Debug")]
-        [SerializeField] public float _constantTimer = 0f;
+        [SerializeField] public float _realTime = 0f;
         [SerializeField] public float _scoreByTime = 0f;
 
         private void Start()
@@ -24,12 +24,18 @@ namespace Components.StateMachine.TimerStateMachine.Scripts
             currentState = greenTimer;
 
             currentState.EnterState(this);
+            GameEventService.HandleTimerForScore += Scoring;
+        }
+        private void OnDestroy()
+        {
+            GameEventService.HandleTimerForScore -= Scoring;
         }
 
         private void Update()
         {
-            _constantTimer += Time.deltaTime;
-            _scoreByTime += Time.deltaTime * _scoreMultiplier;
+            _realTime += Time.deltaTime;
+            Scoring(_scoreByTime);
+            GameEventService.HandleTimerForScore?.Invoke(_scoreByTime);
             currentState.UpdateState(this);
         }
 
@@ -37,6 +43,12 @@ namespace Components.StateMachine.TimerStateMachine.Scripts
         {
             currentState = timer;
             timer.EnterState(this);
+        }
+
+        private void Scoring(float score)
+        {
+            score = _scoreByTime;
+            _scoreByTime += Time.deltaTime * _scoreMultiplier;
         }
     }
 }

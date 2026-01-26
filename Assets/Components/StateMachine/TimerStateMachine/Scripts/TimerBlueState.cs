@@ -10,7 +10,7 @@
 
         public override void UpdateState(TimerStateManager timer)
         {
-            if (timer._constantTimer > 120f)
+            if (timer._realTime > 120f)
             {
                 GameEventService.OnTimerBlueUpdated?.Invoke(false);
                 timer.SwitchState(timer.blueTimer);
