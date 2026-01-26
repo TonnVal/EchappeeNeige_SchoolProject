@@ -5,6 +5,7 @@ namespace Components.StateMachine.SlopeStateMachine.Scripts
 {
     public class SlopeStateManager : MonoBehaviour
     {
+        [Header("Slope State Machine")]
         SlopeBaseState currentState;
         SlopeGreenState greenState = new SlopeGreenState();
         SlopeBlueState blueState = new SlopeBlueState();
@@ -21,6 +22,12 @@ namespace Components.StateMachine.SlopeStateMachine.Scripts
         private void Update()
         {
             currentState.UpdateState(this);
+        }
+
+        private void SwitchState(SlopeBaseState slope)
+        {
+            currentState = slope;
+            slope.EnterState(this);
         }
     }
 }
