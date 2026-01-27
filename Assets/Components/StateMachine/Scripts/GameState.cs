@@ -19,7 +19,6 @@ namespace Components.StateMachine
             GameEventService.OnScoreIncrease += ScoreIncreasing;
         }
 
-
         public override void Update()
         {
             GameEventService.OnScoreIncrease?.Invoke(_currentScore);
