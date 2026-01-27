@@ -6,7 +6,7 @@ namespace Components.StateMachine
     {
         protected readonly StateMachine StateMachine;
 
-        // Constructor gives access to StateMahine and allow to change state throught StateMachine script. 
+        // Constructor gives access to StateMachine and allow to change state throught StateMachine script. 
         protected State(StateMachine stateMachine)
         {
             StateMachine = stateMachine;
