@@ -9,4 +9,7 @@ public static class GameEventService
 
     public static Action<float> OnScoreIncrease;
     public static Action<float> OnSnowFloodUpdated;
+
+    public static Action<bool> OnCountdownState;
+    public static Action<float> OnCountdownTick;
 }

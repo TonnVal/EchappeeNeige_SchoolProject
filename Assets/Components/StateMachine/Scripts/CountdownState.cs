@@ -10,6 +10,7 @@ namespace Components.StateMachine
 
         public override void Enter()
         {
+            GameEventService.OnCountdownState?.Invoke(true);
             _countdownTimer = 3;
         }
         public override void Update()
@@ -17,6 +18,7 @@ namespace Components.StateMachine
             _countdownTimer -= UnityEngine.Time.deltaTime;
             if (_countdownTimer > 0)
             {
+                GameEventService.OnCountdownTick?.Invoke(_countdownTimer);
                 return;
             }
 
@@ -27,7 +29,7 @@ namespace Components.StateMachine
 
         public override void Exit()
         {
-            // noop
+            GameEventService.OnCountdownState?.Invoke(false);
         }
     }
 }

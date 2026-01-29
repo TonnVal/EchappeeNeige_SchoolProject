@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,13 +17,31 @@ public class ObstaclesGenerator : MonoBehaviour
     private List<ChunkController> _activeChunks = new List<ChunkController>();
     private ChunkController LastChunk => _activeChunks[_activeChunks.Count - 1];
 
+    private bool _enabled = false;
+
     private void Start()
     {
         AddBaseChunk();
+        GameEventService.OnGameState += HandleGameState;
+    }
+
+    private void OnDestroy()
+    {
+        GameEventService.OnGameState -= HandleGameState;
+    }
+
+    private void HandleGameState(bool enterState)
+    {
+        _enabled = enterState;
     }
 
     private void Update()
     {
+        if (!_enabled)
+        {
+            return;
+        }
+        
         // For each chunk in the _activeChunks list, a translation is opered.
         foreach (ChunkController chunk in _activeChunks)
         {

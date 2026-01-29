@@ -6,7 +6,7 @@ namespace Components.StateMachine
 {
     public class GameState : State
     {
-        private float _currentSnowFlood = 0f;
+        private float _currentSnowFlood;
         private int _snowFloodImpactValue = 10;
 
         private float _currentTime = 0f;
