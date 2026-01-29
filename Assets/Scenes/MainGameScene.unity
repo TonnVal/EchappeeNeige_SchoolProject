@@ -375,6 +375,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1542905622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &694178942 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7244133633928359930, guid: ce7ca0d2b065d564b937a0c4d0271736, type: 3}
+  m_PrefabInstance: {fileID: 6584907585071308948}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1259299274
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +538,8 @@ MonoBehaviour:
   _behindChunksCount: 1
   _chunkPrefabs:
   - {fileID: 2845556255692494713, guid: 40d9d4c5ba045904faf072a6cc8d9054, type: 3}
+  - {fileID: 2845556255692494713, guid: cf882d95f3bc56249bfe06d219df6227, type: 3}
+  - {fileID: 2845556255692494713, guid: 9ec156fd0d62a934b80e458a71f7b37a, type: 3}
 --- !u!1 &1901230942
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,13 +722,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7244133633928359930, guid: ce7ca0d2b065d564b937a0c4d0271736, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6584907585071308950}
   m_SourcePrefab: {fileID: 100100000, guid: ce7ca0d2b065d564b937a0c4d0271736, type: 3}
 --- !u!4 &6584907585071308949 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8808334158146258220, guid: ce7ca0d2b065d564b937a0c4d0271736, type: 3}
   m_PrefabInstance: {fileID: 6584907585071308948}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6584907585071308950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694178942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187370f053ff1284292a89e90a2fdc55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCollisionController
+  _sphereStandCenter: {x: 0, y: 1.5, z: -0.7}
+  _sphereStandRadius: 0.75
+  _isHit: 0
+  _currentSphereCenter: {x: 0, y: 0, z: 0}
+  _currentSphereRadius: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

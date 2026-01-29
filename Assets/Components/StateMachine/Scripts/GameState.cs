@@ -6,7 +6,9 @@ namespace Components.StateMachine
 {
     public class GameState : State
     {
-        [Header("Play Game Parameters")]
+        private float _currentSnowFlood = 0f;
+        private int _snowFloodImpactValue = 10;
+
         private float _currentTime = 0f;
         private float _currentScore = 0f;
         private int _currentMultiplior = 5;
@@ -17,6 +19,7 @@ namespace Components.StateMachine
         {
             GameEventService.OnGameState?.Invoke(true);
             GameEventService.OnScoreIncrease += ScoreIncreasing;
+            GameEventService.OnCollision += HandleCollision;
         }
 
         public override void Update()
@@ -33,6 +36,13 @@ namespace Components.StateMachine
         {
             _currentTime += Time.deltaTime;
             _currentScore = _currentTime * _currentMultiplior;
+        }
+
+        private void HandleCollision()
+        {
+            _currentSnowFlood += _snowFloodImpactValue;
+            Debug.Log("New SnowFlood value = " + _currentSnowFlood);
+            GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
         }
     }
 }

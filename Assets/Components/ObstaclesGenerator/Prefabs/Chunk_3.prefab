@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 321d75702478cd04d85714c2abb3051b, type: 2}
+  - {fileID: 2100000, guid: eb89687caed47314ca22d27a6fd6ac51, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -178,7 +178,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 321d75702478cd04d85714c2abb3051b, type: 2}
+  - {fileID: 2100000, guid: eb89687caed47314ca22d27a6fd6ac51, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 1452225813421253365}
   - component: {fileID: 2845556255692494713}
   m_Layer: 0
-  m_Name: BlackChunk_1
+  m_Name: Chunk_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

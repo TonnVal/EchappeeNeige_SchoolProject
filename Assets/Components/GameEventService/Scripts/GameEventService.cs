@@ -3,9 +3,10 @@ using UnityEngine;
 
 public static class GameEventService
 {
-    [Header("Main States")]
     public static Action<bool> OnGameState;
 
-    [Header("Score")]
+    public static Action OnCollision;
+
     public static Action<float> OnScoreIncrease;
+    public static Action<float> OnSnowFloodUpdated;
 }
