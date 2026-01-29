@@ -6,6 +6,9 @@ public class PlayerCollisionController : MonoBehaviour
     [SerializeField] private Vector3 _sphereStandCenter;
     [SerializeField] private float _sphereStandRadius;
 
+    [SerializeField] private Vector3 _sphereCrouchStandCenter;
+    [SerializeField] private float _sphereCrouchStandRadius;
+
     [Header("Debug")]
     [SerializeField] private bool _isHit;
     [SerializeField] private Vector3 _currentSphereCenter;
@@ -39,5 +42,19 @@ public class PlayerCollisionController : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(_currentSphereCenter, _currentSphereRadius);
+    }
+
+    public void OnPlayerCrouch(bool crouch)
+    {
+        if (crouch)
+        {
+            _currentSphereCenter = _sphereCrouchStandCenter;
+            _currentSphereRadius = _sphereCrouchStandRadius;
+        }
+        else
+        {
+            _currentSphereCenter = _sphereStandCenter;
+            _currentSphereRadius = _sphereStandRadius;
+        }
     }
 }

@@ -10,15 +10,24 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private InputActionReference _actionCrouch;
     [SerializeField] private InputActionReference _actionSlowDown;
 
-    [Header("Slide Controller")]
+    [Header("Slides Controller")]
     [SerializeField] private Transform[] _currentLane;
     [SerializeField] private float _slideDuration = 0.5f;
+    [SerializeField] private float _crouchDuration = 0.75f;
+
+    [Header("Components")]
+    [SerializeField] private Animator _animator;
+    [SerializeField] private PlayerCollisionController _playerCollisionController;
 
     [Header("Debug")]
     [SerializeField] private bool _isSliding;
     [SerializeField] private int _currentLaneIndex = 1;
+    [SerializeField] private bool _isCrouching;
 
     private Coroutine _slideCoroutine;
+    private Coroutine _crouchCoroutine;
+
+    private const string CROUCH_PARAMETER = "IsCrouching";
 
     private void OnEnable()
     {
@@ -36,7 +45,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 StopCoroutine(_slideCoroutine);
             }
-            
+
             if (_currentLaneIndex == 0)
             {
                 return;
@@ -52,7 +61,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 StopCoroutine(_slideCoroutine);
             }
-            
+
             if (_currentLaneIndex == _currentLane.Length - 1)
             {
                 return;
@@ -64,7 +73,13 @@ public class PlayerMovementController : MonoBehaviour
 
         if (_actionCrouch.action.WasPerformedThisFrame())
         {
-            return;
+            if (_isCrouching)
+            {
+                return;
+            }
+
+            Debug.Log("Time to Crouch");
+            _crouchCoroutine = StartCoroutine(Coroutine_Crouch());
         }
     }
 
@@ -77,10 +92,10 @@ public class PlayerMovementController : MonoBehaviour
     private IEnumerator Coroutine_Slide(Transform target)
     {
         _isSliding = true;
-        
+
         // Set to 0 a timer for sliding.
         var _slideTimer = 0f;
-        
+
         // Loop who runs till the timer is not equal to the slide's duration.
         while (_slideTimer < _slideDuration)
         {
@@ -91,15 +106,34 @@ public class PlayerMovementController : MonoBehaviour
             // Set the target position with the x position of the coroutine's argument -> "target" (= distance).
             _slideTimer += Time.deltaTime;
             var normalizedTime = Mathf.Clamp01(_slideTimer / _slideDuration);
-            var targetPosition = new Vector3 (target.position.x, transform.position.y, transform.position.z);
+            var targetPosition = new Vector3(target.position.x, transform.position.y, transform.position.z);
 
             // Movement between two positions in a defined time.
             transform.position = Vector3.Lerp(transform.position, targetPosition, normalizedTime);
-        
+
             // Wait for the next frame.
             yield return null;
         }
-        
+
         _isSliding = false;
+    }
+
+        private IEnumerator Coroutine_Crouch()
+    {
+        _isCrouching = true;
+        _animator.SetBool(CROUCH_PARAMETER, true);
+        _playerCollisionController.OnPlayerCrouch(true);
+        
+        var _crouchTimer = 0f;
+
+        while (_crouchTimer < _crouchDuration)
+        {
+            _crouchTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        _playerCollisionController.OnPlayerCrouch(false);
+        _animator.SetBool(CROUCH_PARAMETER, false);
+        _isCrouching = false;
     }
 }
