@@ -16,8 +16,6 @@ namespace Components.StateMachine
         
         public override void Enter()
         {
-            _currentSnowFlood = 0;
-
             GameEventService.OnGameState?.Invoke(true);
             GameEventService.OnScoreIncrease += ScoreIncreasing;
             GameEventService.OnCollision += HandleCollision;
@@ -31,6 +29,8 @@ namespace Components.StateMachine
         public override void Exit()
         {
             GameEventService.OnGameState?.Invoke(false);
+            GameEventService.OnScoreIncrease -= ScoreIncreasing;
+            GameEventService.OnCollision -= HandleCollision;
         }
         
         private void ScoreIncreasing(float obj)

@@ -7,7 +7,7 @@ namespace Components.StateMachine
         private StateMachine _stateMachine;
         
         // Create an instance for StateMachine.
-        private void Awake()
+        private void Start()
         {
             _stateMachine = new StateMachine();
             // Change here to give another start to state machine.

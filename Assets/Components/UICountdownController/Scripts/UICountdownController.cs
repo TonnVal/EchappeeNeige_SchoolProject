@@ -23,7 +23,7 @@ public class UICountdownController : MonoBehaviour
         _countdownPanel.SetActive(enterState);
     }
 
-    private void SetCountdown(float countdown)
+    public void SetCountdown(float countdown)
     {
         _countdownText.text = countdown.ToString("0");
 

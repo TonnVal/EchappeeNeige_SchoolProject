@@ -1,5 +1,3 @@
-using Components.StateMachine;
-using System;
 using UnityEngine;
 
 public class GameOverController : MonoBehaviour
