@@ -4,6 +4,7 @@ using UnityEngine;
 public static class GameEventService
 {
     public static Action<bool> OnGameState;
+    public static Action<bool> OnGameOver;
 
     public static Action OnCollision;
 

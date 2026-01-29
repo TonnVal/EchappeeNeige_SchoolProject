@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Components.StateMachine
 {
     public class CountdownState : State
@@ -15,7 +17,7 @@ namespace Components.StateMachine
         }
         public override void Update()
         {
-            _countdownTimer -= UnityEngine.Time.deltaTime;
+            _countdownTimer -= Time.deltaTime;
             if (_countdownTimer > 0)
             {
                 GameEventService.OnCountdownTick?.Invoke(_countdownTimer);

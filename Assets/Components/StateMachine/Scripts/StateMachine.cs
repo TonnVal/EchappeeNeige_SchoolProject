@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Components.StateMachine
 {
@@ -12,6 +12,8 @@ namespace Components.StateMachine
         // You need to inform the new [State](StateMachine).
         public void ChangeState(State newState)
         {
+            Debug.Log($"Changing state from {CurrentState?.GetType().Name} to {newState.GetType().Name}");
+            
             CurrentState?.Exit();
             CurrentState = newState;
             CurrentState.Enter();

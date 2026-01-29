@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Components.StateMachine
@@ -8,6 +6,7 @@ namespace Components.StateMachine
     {
         private float _currentSnowFlood;
         private int _snowFloodImpactValue = 10;
+        private float _snowFloodMax = 100f;
 
         private float _currentTime = 0f;
         private float _currentScore = 0f;
@@ -17,6 +16,8 @@ namespace Components.StateMachine
         
         public override void Enter()
         {
+            _currentSnowFlood = 0;
+
             GameEventService.OnGameState?.Invoke(true);
             GameEventService.OnScoreIncrease += ScoreIncreasing;
             GameEventService.OnCollision += HandleCollision;
@@ -43,6 +44,11 @@ namespace Components.StateMachine
             _currentSnowFlood += _snowFloodImpactValue;
             Debug.Log("New SnowFlood value = " + _currentSnowFlood);
             GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
+
+            if (_currentSnowFlood == _snowFloodMax)
+            {
+                StateMachine.ChangeState(new GameOverState(StateMachine));
+            }
         }
     }
 }
