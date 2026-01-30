@@ -12,5 +12,7 @@ namespace Components.Data
 
         // Reminder : it's a getter which allow reading but not modifying the value.
         public float SnowFlood => _snowFlood;
+
+        // Is possible to modify dynamically the value thanks to a method with parameters in the scriptable object.
     }
 }
