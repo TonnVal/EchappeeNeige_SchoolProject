@@ -1073,6 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61ca03adca0e3a46aaa9a5f5d5bb983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UISnowFloodController
+  _levelParameters: {fileID: 11400000, guid: cb1bc8b2da2ad4b4b85685851cc0bff2, type: 2}
   _snowFloodText: {fileID: 1456954312}
 --- !u!1 &1638888631
 GameObject:

@@ -1,3 +1,4 @@
+using Components.Data;
 using UnityEngine;
 
 namespace Components.StateMachine
@@ -8,7 +9,7 @@ namespace Components.StateMachine
 
         // Constructor that respect the State condition.
         // Base define the base-constructor.
-        public CountdownState(StateMachine stateMachine) : base(stateMachine) { }
+        public CountdownState(StateMachine stateMachine, SOLevelParameters levelParameters) : base(stateMachine, levelParameters) { }
 
         public override void Enter()
         {
@@ -26,7 +27,7 @@ namespace Components.StateMachine
 
             // Ask StateMachine to change state.
             // stateMachine became GameState.
-            StateMachine.ChangeState(new GameState(StateMachine));
+            StateMachine.ChangeState(new GameState(StateMachine, LevelParameters));
         }
 
         public override void Exit()

@@ -1,3 +1,4 @@
+using Components.Data;
 using UnityEngine;
 
 namespace Components.StateMachine
@@ -12,13 +13,15 @@ namespace Components.StateMachine
         private float _currentScore = 0f;
         private int _currentMultiplior = 5;
         
-        public GameState(StateMachine stateMachine) : base(stateMachine) { }
+        public GameState(StateMachine stateMachine, SOLevelParameters levelParameters) : base(stateMachine, levelParameters) { }
         
         public override void Enter()
         {
             GameEventService.OnGameState?.Invoke(true);
             GameEventService.OnScoreIncrease += ScoreIncreasing;
             GameEventService.OnCollision += HandleCollision;
+
+            _currentSnowFlood = LevelParameters.SnowFlood;
         }
 
         public override void Update()
@@ -47,7 +50,7 @@ namespace Components.StateMachine
 
             if (_currentSnowFlood == _snowFloodMax)
             {
-                StateMachine.ChangeState(new GameOverState(StateMachine));
+                StateMachine.ChangeState(new GameOverState(StateMachine, LevelParameters));
             }
         }
     }
