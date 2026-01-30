@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8a3602873e38941bd035e2caa98134, type: 3}
   m_Name: MainLevelParameters
   m_EditorClassIdentifier: Assembly-CSharp::Components.Data.SOLevelParameters
-  _snowFlood: 0
-  _updateColorChunkTimerInterval: 10
   _speed:
   - 10
   - 15
   - 20
+  _updateColorChunkTimerInterval: 10
   _updatePointMultiplicator: 190000003200000064000000
+  _snowFlood: 0
+  _snowFloodImpact: 000000000000000000000000
+  _snowFloodTimerIncrease:
+  - 6
+  - 4
+  - 2
   _chunkMaterial:
   - {fileID: 2100000, guid: 321d75702478cd04d85714c2abb3051b, type: 2}
   - {fileID: 2100000, guid: 098267358a76cbe418e752488a6144df, type: 2}

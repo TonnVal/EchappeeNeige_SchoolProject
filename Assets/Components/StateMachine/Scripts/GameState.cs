@@ -1,13 +1,16 @@
-using UnityEngine;
+using System;
+using System.Collections;
 using Components.Data;
+using UnityEngine;
 
 namespace Components.StateMachine
 {
     public class GameState : State
     {
         private float _currentSnowFlood;
-        private int _snowFloodImpactValue = 10;
         private float _snowFloodMax = 100f;
+        private int _snowFloodImpactValue = 5;
+        private float _snowFloodTimerIncreaseValue = 8f;
 
         private float _currentTime = 0f;
         private float _currentScore = 0f;
@@ -15,6 +18,8 @@ namespace Components.StateMachine
 
         private float _chunkTimer;
         private int _colorSwapCount;
+
+        private Coroutine snowfloodTimer;
         
         public GameState(StateMachine stateMachine, SOLevelParameters levelParameters) : base(stateMachine, levelParameters) { }
         
@@ -24,14 +29,17 @@ namespace Components.StateMachine
             GameEventService.OnScoreIncrease += ScoreIncreasing;
             GameEventService.OnCollision += HandleCollision;
 
-            _currentSnowFlood = 0;
-            _chunkTimer = 0;
+            _currentSnowFlood = 0f;
+
             _currentMultiplicator = 10;
+
+            _chunkTimer = 0;
         }
 
         public override void Update()
         {
             GameEventService.OnScoreIncrease?.Invoke(_currentScore);
+            GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
 
             if (_colorSwapCount >= LevelParameters.MaxColorSwapCount)
             {
@@ -51,7 +59,13 @@ namespace Components.StateMachine
                 var multiplicator = LevelParameters.UpdatePointScred[_colorSwapCount];
                 GameEventService.OnScoreMultiplicatorUpdated?.Invoke(multiplicator);
 
+                var impactValue = LevelParameters.SnowFloodImpact[_colorSwapCount];
+
+                var snowFloodTimerIncrease = LevelParameters.SnowFloodTimerIncrease[_colorSwapCount];
+
                 _currentMultiplicator = multiplicator;
+                _snowFloodImpactValue = impactValue;
+                _snowFloodTimerIncreaseValue = snowFloodTimerIncrease;
                 _colorSwapCount++;
                 _chunkTimer = 0;
             }
@@ -59,9 +73,11 @@ namespace Components.StateMachine
 
         public override void Exit()
         {
-            GameEventService.OnGameState?.Invoke(false);
+            Debug.Log("Exiting Game State");
+            _currentSnowFlood = 0;
             GameEventService.OnScoreIncrease -= ScoreIncreasing;
             GameEventService.OnCollision -= HandleCollision;
+            GameEventService.OnGameState?.Invoke(false);
         }
         
         private void ScoreIncreasing(float obj)
@@ -76,7 +92,7 @@ namespace Components.StateMachine
             Debug.Log($"New SnowFlood value = {_currentSnowFlood}");
             GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
 
-            if (_currentSnowFlood == _snowFloodMax)
+            if (_currentSnowFlood >= _snowFloodMax)
             {
                 StateMachine.ChangeState(new GameOverState(StateMachine, LevelParameters));
             }
