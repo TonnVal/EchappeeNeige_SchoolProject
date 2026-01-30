@@ -7,9 +7,10 @@ public static class SaveService
     
     // Combine strings and create a path.
     private static string FilePath => Path.Combine(Application.persistentDataPath, FILE_NAME);
-    
+
     // Write the save located in the Filepath path.
-    public static void Save(SaveData saveData)
+    // Using T as a type make SaveService generic.
+    public static void Save<T>(T saveData)
     {
         string json = JsonUtility.ToJson(saveData);
         File.WriteAllText(FilePath, json);
@@ -17,17 +18,17 @@ public static class SaveService
     }
 
     // Read the save located in the FilePath path.
-    public static SaveData LoadSave()
+    public static T LoadSave<T>()
     {
         string json = File.ReadAllText(FilePath);
 
         if (string.IsNullOrEmpty(json))
         {
             Debug.LogError("Save data not found at " + FilePath);
-            return null;
+            return default;
         }
 
-        var result = JsonUtility.FromJson<SaveData>(json);
+        var result = JsonUtility.FromJson<T>(json);
 
         return result;
     }
