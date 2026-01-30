@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using Components.SODB;
 using UnityEngine;
 
 public class ObstaclesGenerator : MonoBehaviour
 {
     [Header("Parameters")] 
-    [SerializeField] private float _translationSpeed = 5f;
+    [SerializeField] private float _translationSpeed;
     [SerializeField] private int _activeChunksCount = 2;
     [SerializeField] private int _behindChunksCount = 1;
 
@@ -20,6 +21,9 @@ public class ObstaclesGenerator : MonoBehaviour
 
     private void Start()
     {
+        var parameters = ScriptableObjectDataBase.GetByName("MainLevelParameters");
+        _translationSpeed = parameters.SnowSpeed;
+        
         AddBaseChunk();
         GameEventService.OnGameState += HandleGameState;
     }

@@ -22,6 +22,6 @@ public class UISnowFloodController : MonoBehaviour
 
     private void SetSnowFlood(float snowFlood)
     {
-        _snowFloodText.text = "Score: " + snowFlood.ToString("0");
+        _snowFloodText.text = "Snow Flood: " + snowFlood.ToString("0");
     }
 }

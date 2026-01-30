@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8a3602873e38941bd035e2caa98134, type: 3}
   m_Name: MainLevelParameters
   m_EditorClassIdentifier: Assembly-CSharp::Components.Data.SOLevelParameters
+  _snowFlood: 0
+  _speed: 5

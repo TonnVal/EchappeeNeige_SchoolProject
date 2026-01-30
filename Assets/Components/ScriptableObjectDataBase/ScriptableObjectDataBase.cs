@@ -9,12 +9,17 @@ namespace Components.SODB
     public static class ScriptableObjectDataBase
     {
         private static readonly Dictionary<string, SOLevelParameters> DATABASE = new();
-        
+
+        // Syntax for calling the following method just before the game start.
+        // It's necessary because we have desactivated the domain reload in Unity settings.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         // Static constructors dont have accessor (public, private, etc).
         // Static constructors can't be directly called.
         // But if a member of a static construcor is called, the constructor is called too before return a value.
-        static ScriptableObjectDataBase()
+        private static void Initialize()
         {
+            DATABASE.Clear();
+
             // Loading assets from a path in all Unity's project.
             // Here, script look in all paths that contain "Data".
             var scriptableObjects = Resources.LoadAll<SOLevelParameters>("Data");

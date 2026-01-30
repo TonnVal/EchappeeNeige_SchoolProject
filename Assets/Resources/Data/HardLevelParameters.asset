@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: HardLevelParameters
   m_EditorClassIdentifier: Assembly-CSharp::Components.Data.SOLevelParameters
   _snowFlood: 50
+  _speed: 25

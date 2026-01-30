@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class UIMenuController : MonoBehaviour
 {
+    private void Start()
+    {
+        var save = new SaveData();
+        
+        SaveService.Save(save);
+    }
+
     public void PlayGame()
     {
         SceneLoarderService.LoadLevel();
