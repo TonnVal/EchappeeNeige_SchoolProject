@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class UIScore : MonoBehaviour
 {
+    [Header("UI References")]
     [SerializeField] private TMP_Text _scoreText;
 
     private void Start()

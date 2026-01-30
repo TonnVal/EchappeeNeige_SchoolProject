@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Components.SODB;
 using UnityEngine;
@@ -22,15 +23,26 @@ public class ObstaclesGenerator : MonoBehaviour
     private void Start()
     {
         var parameters = ScriptableObjectDataBase.GetByName("MainLevelParameters");
-        _translationSpeed = parameters.SnowSpeed;
+        HandleSpeedUpdated(PersistentData.CurrentSpeed);
         
         AddBaseChunk();
         GameEventService.OnGameState += HandleGameState;
+        GameEventService.OnSpeedUpdated += HandleSpeedUpdated;
     }
 
     private void OnDestroy()
     {
         GameEventService.OnGameState -= HandleGameState;
+        GameEventService.OnSpeedUpdated -= HandleSpeedUpdated;
+    }
+
+    private void HandleSpeedUpdated(float newSpeed)
+    {
+        if (newSpeed == 0)
+        {
+            return;
+        }
+        _translationSpeed = newSpeed;
     }
 
     private void HandleGameState(bool enterState)

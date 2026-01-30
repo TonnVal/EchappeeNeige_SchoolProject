@@ -7,7 +7,9 @@ public static class PersistentData
     private static void Initialize()
     {
         CurrentChunkMaterial = null;
+        CurrentSpeed = 0f;
     }
     
     public static Material CurrentChunkMaterial;
+    public static float CurrentSpeed;
 }
