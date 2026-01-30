@@ -1,4 +1,5 @@
 using Components.Data;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Components.StateMachine
@@ -12,6 +13,9 @@ namespace Components.StateMachine
         private float _currentTime = 0f;
         private float _currentScore = 0f;
         private int _currentMultiplior = 5;
+
+        private float _chunkTimer;
+        private int _colorSwapCount;
         
         public GameState(StateMachine stateMachine, SOLevelParameters levelParameters) : base(stateMachine, levelParameters) { }
         
@@ -22,11 +26,28 @@ namespace Components.StateMachine
             GameEventService.OnCollision += HandleCollision;
 
             _currentSnowFlood = LevelParameters.SnowFlood;
+            _chunkTimer = 0;
         }
 
         public override void Update()
         {
             GameEventService.OnScoreIncrease?.Invoke(_currentScore);
+
+            if (_colorSwapCount >= LevelParameters.MaxColorSwapCount)
+            {
+                return;
+            }
+            
+            _chunkTimer += Time.deltaTime;
+            if (_chunkTimer > LevelParameters.UpdateColorChunkTimerInterval)
+            {
+                var material = LevelParameters.ChunkMaterial[_colorSwapCount];
+                GameEventService.OnChunkChangeColor?.Invoke(material);
+                PersistentData.CurrentChunkMaterial = material;
+
+                _colorSwapCount++;
+                _chunkTimer = 0;
+            }
         }
 
         public override void Exit()

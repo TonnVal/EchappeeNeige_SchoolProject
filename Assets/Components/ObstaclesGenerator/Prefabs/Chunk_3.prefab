@@ -445,3 +445,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkController
   _endAnchor: {fileID: 2739451482605875765}
+  _meshRendererLeftPath: {fileID: 5651579144766498724}
+  _meshRandererRightPath: {fileID: 6529625161340045865}

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 namespace Components.Data
 {
@@ -10,10 +11,16 @@ namespace Components.Data
     {
         [SerializeField] private float _snowFlood = 0;
         [SerializeField] private float _speed;
+        [SerializeField] private float _updateColorChunkTimerInterval = 60f;
+        [SerializeField] private List<Material> _chunkMaterial;
+        [SerializeField] private int _maxColorSwapCount = 3;
 
         // Reminder : it's a getter which allow reading but not modifying the value.
         public float SnowFlood => _snowFlood;
         public float SnowSpeed => _speed;
+        public float UpdateColorChunkTimerInterval => _updateColorChunkTimerInterval;
+        public List<Material> ChunkMaterial => _chunkMaterial;
+        public int MaxColorSwapCount => _maxColorSwapCount;
 
         // Is possible to modify dynamically the value thanks to a method with parameters in the scriptable object.
     }

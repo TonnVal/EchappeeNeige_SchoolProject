@@ -9,7 +9,7 @@ public static class SaveService
     private static string FilePath => Path.Combine(Application.persistentDataPath, FILE_NAME);
 
     // Write the save located in the Filepath path.
-    // Using T as a type make SaveService generic.
+    // Using T as a type make SaveService generic, avoiding any error.
     public static void Save<T>(T saveData)
     {
         string json = JsonUtility.ToJson(saveData);

@@ -13,4 +13,6 @@ public static class GameEventService
 
     public static Action<bool> OnCountdownState;
     public static Action<float> OnCountdownTick;
+
+    public static Action<Material> OnChunkChangeColor;
 }
