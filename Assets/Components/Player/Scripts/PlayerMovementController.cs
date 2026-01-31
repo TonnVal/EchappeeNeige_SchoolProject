@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,11 +24,13 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private bool _isSliding;
     [SerializeField] private int _currentLaneIndex = 1;
     [SerializeField] private bool _isCrouching;
+    [SerializeField] private bool _isSlowingDown;
 
     private Coroutine _slideCoroutine;
     private Coroutine _crouchCoroutine;
 
     private const string CROUCH_PARAMETER = "IsCrouching";
+    private const string SLOW_DOWN_PARAMETER = "IsSlowDown";
 
     private void OnEnable()
     {
@@ -78,8 +81,22 @@ public class PlayerMovementController : MonoBehaviour
                 return;
             }
 
-            Debug.Log("Time to Crouch");
+            Debug.Log("Time to Crouch.");
             _crouchCoroutine = StartCoroutine(Coroutine_Crouch());
+        }
+
+        if (_actionSlowDown.action.IsPressed())
+        {
+            _isSlowingDown = true;
+            _animator.SetBool(SLOW_DOWN_PARAMETER, true);
+            GameEventService.OnPlayerBrake(true);
+            
+        }
+        else
+        {
+            _isSlowingDown = false;
+            _animator.SetBool(SLOW_DOWN_PARAMETER, false);
+            GameEventService.OnPlayerBrake(false);
         }
     }
 

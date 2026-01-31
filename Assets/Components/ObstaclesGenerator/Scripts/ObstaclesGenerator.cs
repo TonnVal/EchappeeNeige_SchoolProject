@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Components.Data;
 using Components.SODB;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class ObstaclesGenerator : MonoBehaviour
     private ChunkController LastChunk => _activeChunks[_activeChunks.Count - 1];
 
     private bool _enabled = false;
+    private bool _isSlow = false;
 
     private void Start()
     {
@@ -28,12 +30,28 @@ public class ObstaclesGenerator : MonoBehaviour
         AddBaseChunk();
         GameEventService.OnGameState += HandleGameState;
         GameEventService.OnSpeedUpdated += HandleSpeedUpdated;
+        GameEventService.OnPlayerBrake += HandleSlowDown;
     }
 
     private void OnDestroy()
     {
         GameEventService.OnGameState -= HandleGameState;
         GameEventService.OnSpeedUpdated -= HandleSpeedUpdated;
+        GameEventService.OnPlayerBrake -= HandleSlowDown;
+    }
+
+    private void HandleSlowDown(bool slowDown)
+    {   
+        if (slowDown && !_isSlow)
+        {
+            _translationSpeed = _translationSpeed / 2;
+            _isSlow = true;
+        }
+        else if (!slowDown && _isSlow)
+        {
+            _translationSpeed = _translationSpeed * 2;
+            _isSlow = false;
+        }
     }
 
     private void HandleSpeedUpdated(float newSpeed)
