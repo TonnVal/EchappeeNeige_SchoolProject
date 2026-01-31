@@ -20,7 +20,7 @@ MonoBehaviour:
   _updatePointMultiplicator: 190000003200000064000000
   _snowFlood: 0
   _snowFloodImpact: 000000000000000000000000
-  _snowFloodMainTimer: 0
+  _snowFloodMainTimer: 10
   _snowFloodTimerIncrease:
   - 2
   - 4
