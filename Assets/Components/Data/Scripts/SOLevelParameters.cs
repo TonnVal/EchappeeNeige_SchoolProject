@@ -20,6 +20,7 @@ namespace Components.Data
         [Header("Snow Flood Parameters")]
         [SerializeField] private float _snowFlood = 0;
         [SerializeField] private List<int> _snowFloodImpact;
+        [SerializeField] private float _snowFloodMainTimer = 8f;
         [SerializeField] private List<float> _snowFloodTimerIncrease;
 
         [Header("Chunk Colors")]
@@ -34,6 +35,7 @@ namespace Components.Data
 
         public float SnowFlood => _snowFlood;
         public List<int> SnowFloodImpact => _snowFloodImpact;
+        public float SnowFloodMainTimer => _snowFloodMainTimer;
         public List<float> SnowFloodTimerIncrease => _snowFloodTimerIncrease;
 
         public List<Material> ChunkMaterial => _chunkMaterial;

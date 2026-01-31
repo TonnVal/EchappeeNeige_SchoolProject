@@ -16,14 +16,15 @@ MonoBehaviour:
   - 10
   - 15
   - 20
-  _updateColorChunkTimerInterval: 10
+  _updateColorChunkTimerInterval: 60
   _updatePointMultiplicator: 190000003200000064000000
   _snowFlood: 0
   _snowFloodImpact: 000000000000000000000000
+  _snowFloodMainTimer: 0
   _snowFloodTimerIncrease:
-  - 6
-  - 4
   - 2
+  - 4
+  - 6
   _chunkMaterial:
   - {fileID: 2100000, guid: 321d75702478cd04d85714c2abb3051b, type: 2}
   - {fileID: 2100000, guid: 098267358a76cbe418e752488a6144df, type: 2}

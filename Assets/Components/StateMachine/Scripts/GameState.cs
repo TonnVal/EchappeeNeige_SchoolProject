@@ -10,7 +10,7 @@ namespace Components.StateMachine
         private float _currentSnowFlood;
         private float _snowFloodMax = 100f;
         private int _snowFloodImpactValue = 5;
-        private float _snowFloodTimerIncreaseValue = 8f;
+        private float _snowFloodTimer;
 
         private float _currentTime = 0f;
         private float _currentScore = 0f;
@@ -18,8 +18,6 @@ namespace Components.StateMachine
 
         private float _chunkTimer;
         private int _colorSwapCount;
-
-        private Coroutine snowfloodTimer;
         
         public GameState(StateMachine stateMachine, SOLevelParameters levelParameters) : base(stateMachine, levelParameters) { }
         
@@ -34,6 +32,7 @@ namespace Components.StateMachine
             _currentMultiplicator = 10;
 
             _chunkTimer = 0;
+            _snowFloodTimer = 8f;
         }
 
         public override void Update()
@@ -41,11 +40,20 @@ namespace Components.StateMachine
             GameEventService.OnScoreIncrease?.Invoke(_currentScore);
             GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
 
+            _snowFloodTimer -= Time.deltaTime;
+            if (_snowFloodTimer <= LevelParameters.SnowFloodMainTimer - LevelParameters.SnowFloodTimerIncrease[_colorSwapCount])
+            {
+                Debug.Log(_snowFloodTimer);
+                _currentSnowFlood++;
+                _snowFloodTimer = LevelParameters.SnowFloodMainTimer;
+            }
+
             if (_colorSwapCount >= LevelParameters.MaxColorSwapCount)
             {
                 return;
             }
-            
+
+
             _chunkTimer += Time.deltaTime;
             if (_chunkTimer > LevelParameters.UpdateColorChunkTimerInterval)
             {
@@ -65,7 +73,6 @@ namespace Components.StateMachine
 
                 _currentMultiplicator = multiplicator;
                 _snowFloodImpactValue = impactValue;
-                _snowFloodTimerIncreaseValue = snowFloodTimerIncrease;
                 _colorSwapCount++;
                 _chunkTimer = 0;
             }
