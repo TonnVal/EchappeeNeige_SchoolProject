@@ -1,16 +1,19 @@
 using Components.SODB;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UISnowFloodController : MonoBehaviour
 {
     [Header("UI References")]
-    [SerializeField] private TMP_Text _snowFloodText;
+    [SerializeField] private float _snowFloodMax = 100f;
+
+    [SerializeField] private Image _snowFloodBarImage;
 
     private void Start()
     {
         var parameters = ScriptableObjectDataBase.GetByName("MainLevelParameters");
-        
+
         SetSnowFlood(parameters.SnowFlood);
         GameEventService.OnSnowFloodUpdated += SetSnowFlood;
     }
@@ -20,8 +23,9 @@ public class UISnowFloodController : MonoBehaviour
         GameEventService.OnSnowFloodUpdated -= SetSnowFlood;
     }
 
+    // Manage snow flood bar in the UI.
     private void SetSnowFlood(float snowFlood)
     {
-        _snowFloodText.text = "Snow Flood: " + snowFlood.ToString("0");
+        _snowFloodBarImage.fillAmount = snowFlood / _snowFloodMax;
     }
 }

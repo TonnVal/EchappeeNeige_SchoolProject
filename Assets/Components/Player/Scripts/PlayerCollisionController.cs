@@ -24,7 +24,7 @@ public class PlayerCollisionController : MonoBehaviour
 
     private void Update()
     {
-        var _hitCount = Physics.OverlapSphereNonAlloc(transform.position + _currentSphereCenter, _sphereStandRadius, _hitResults);
+        var _hitCount = Physics.OverlapSphereNonAlloc(transform.position + _currentSphereCenter, _currentSphereRadius, _hitResults);
 
         if (_hitCount > 0 && !_isHit)
         {
@@ -41,7 +41,7 @@ public class PlayerCollisionController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(_currentSphereCenter, _currentSphereRadius);
+        Gizmos.DrawWireSphere(transform.position + _currentSphereCenter, _currentSphereRadius);
     }
 
     public void OnPlayerCrouch(bool crouch)

@@ -4,7 +4,7 @@ namespace Components.StateMachine
 {
 
     public class StateMachine
-    {
+    {   
         // This getter only allow StateMachine to modify CurrentState.
         public State CurrentState { get; private set; }
 
