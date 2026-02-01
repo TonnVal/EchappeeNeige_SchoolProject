@@ -17,6 +17,10 @@ MonoBehaviour:
   - 15
   - 20
   _updateColorChunkTimerInterval: 60
+  _updateFOV:
+  - 85
+  - 80
+  - 75
   _updatePointMultiplicator: 190000003200000064000000
   _snowFlood: 0
   _snowFloodImpact: 000000000000000000000000

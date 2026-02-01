@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Components.Data;
 using Components.SODB;
 using UnityEngine;
 
@@ -10,6 +8,7 @@ public class ObstaclesGenerator : MonoBehaviour
     [SerializeField] private float _translationSpeed;
     [SerializeField] private int _activeChunksCount = 2;
     [SerializeField] private int _behindChunksCount = 1;
+    [SerializeField] private bool _preventSameChunkGeneration = true;
 
     [Header("Prefabs")]
     // Give access to game objects with ChunkController component.
@@ -19,6 +18,7 @@ public class ObstaclesGenerator : MonoBehaviour
     private List<ChunkController> _activeChunks = new List<ChunkController>();
     private ChunkController LastChunk => _activeChunks[_activeChunks.Count - 1];
 
+    private int _lastChunkIndex;
     private bool _enabled = false;
     private bool _isSlow = false;
 
@@ -99,12 +99,28 @@ public class ObstaclesGenerator : MonoBehaviour
         }
     }
 
-    private void AddChunk(Vector3 position)
+    private ChunkController AddChunk(Vector3 position)
     {
-        ChunkController chunk = Instantiate(_chunkPrefabs[0], transform);
+        var newChunkIndex = Random.Range(0, _chunkPrefabs.Length);
+
+        if (_preventSameChunkGeneration)
+        {
+            for (int i = 0; i < 10; i ++)
+            {
+                if (newChunkIndex == _lastChunkIndex)
+                {
+                    newChunkIndex = Random.Range(0, _chunkPrefabs.Length);
+                }
+            }
+            _lastChunkIndex = newChunkIndex;
+        }
+        
+        ChunkController chunk = Instantiate(_chunkPrefabs[newChunkIndex], transform);
         chunk.transform.position = position;
         // Add chunk instantiation to _activeChunks list.
         _activeChunks.Add(chunk);
+
+        return chunk;
     }
 
     private void UpdateChunks()

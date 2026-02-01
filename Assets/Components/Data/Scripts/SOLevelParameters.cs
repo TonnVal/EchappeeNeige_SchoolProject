@@ -13,6 +13,7 @@ namespace Components.Data
         [Header("Main Parameters")]
         [SerializeField] private List<float> _speed;
         [SerializeField] private float _updateColorChunkTimerInterval = 60f;
+        [SerializeField] private List<float> _updateFOV;
 
         [Header("Score Parameters")]
         [SerializeField] private List<int> _updatePointMultiplicator;
@@ -30,6 +31,7 @@ namespace Components.Data
         // Reminder : it's a getter which allow reading but not modifying the value.
         public List<float> Speed => _speed;
         public float UpdateColorChunkTimerInterval => _updateColorChunkTimerInterval;
+        public List<float> UpdateFOV => _updateFOV;
 
         public List<int> UpdatePointScred => _updatePointMultiplicator;
 

@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 1435189783}
   - component: {fileID: 1435189782}
   - component: {fileID: 1435189781}
+  - component: {fileID: 1435189784}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -443,6 +444,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1435189784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435189779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e716e8fef416ab46875a5b2fd6c7272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  _startFieldOfView: 90
+  _camera: {fileID: 1435189783}
 --- !u!1 &1473439333
 GameObject:
   m_ObjectHideFlags: 0

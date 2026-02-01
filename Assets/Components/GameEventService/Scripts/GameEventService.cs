@@ -10,6 +10,7 @@ public static class GameEventService
 
     public static Action OnCollision;
     public static Action<Material> OnChunkChangeColor;
+    public static Action<float> OnFieldOfViewUpdated;
 
     public static Action<float> OnScoreIncrease;
     public static Action<int> OnScoreMultiplicatorUpdated;

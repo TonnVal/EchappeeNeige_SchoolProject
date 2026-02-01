@@ -72,6 +72,9 @@ namespace Components.StateMachine
 
                 var snowFloodTimerIncrease = LevelParameters.SnowFloodTimerIncrease[_colorSwapCount];
 
+                var fov = LevelParameters.UpdateFOV[_colorSwapCount];
+                GameEventService.OnFieldOfViewUpdated?.Invoke(fov);
+
                 _currentMultiplicator = multiplicator;
                 _snowFloodImpactValue = impactValue;
                 _colorSwapCount++;
