@@ -19,6 +19,8 @@ namespace Components.StateMachine
 
         private float _chunkTimer;
         private int _colorSwapCount;
+
+        private float _scoreBonus;
         
         public GameState(StateMachine stateMachine, SOLevelParameters levelParameters) : base(stateMachine, levelParameters) { }
 
@@ -28,6 +30,7 @@ namespace Components.StateMachine
             GameEventService.OnScoreIncrease += ScoreIncreasing;
             GameEventService.OnCollision += HandleCollision;
             GameEventService.OnPlayerBrake += SnowFloodTimerDivisor;
+            GameEventService.OnScoreCollectiblePicked += HandleCollectiblePicked;
 
             _currentSnowFlood = 0f;
 
@@ -35,6 +38,8 @@ namespace Components.StateMachine
 
             _chunkTimer = 0;
             _snowFloodTimer = 0;
+
+            _scoreBonus = 40;
         }
 
         public override void Update()
@@ -53,7 +58,6 @@ namespace Components.StateMachine
             {
                 return;
             }
-
 
             _chunkTimer += Time.deltaTime;
             if (_chunkTimer > LevelParameters.UpdateColorChunkTimerInterval)
@@ -75,8 +79,12 @@ namespace Components.StateMachine
                 var fov = LevelParameters.UpdateFOV[_colorSwapCount];
                 GameEventService.OnFieldOfViewUpdated?.Invoke(fov);
 
+                var scoreBonus = LevelParameters.ScoreBonus[_colorSwapCount];
+
                 _currentMultiplicator = multiplicator;
                 _snowFloodImpactValue = impactValue;
+                _scoreBonus = scoreBonus;
+
                 _colorSwapCount++;
                 _chunkTimer = 0;
             }
@@ -88,6 +96,7 @@ namespace Components.StateMachine
             GameEventService.OnScoreIncrease -= ScoreIncreasing;
             GameEventService.OnCollision -= HandleCollision;
             GameEventService.OnPlayerBrake -= SnowFloodTimerDivisor;
+            GameEventService.OnScoreCollectiblePicked -= HandleCollectiblePicked;
             GameEventService.OnGameState?.Invoke(false);
         }
         
@@ -120,7 +129,18 @@ namespace Components.StateMachine
             }
             else
             {
-                _snowFloodTimerMax = LevelParameters.SnowFloodMainTimer - LevelParameters.SnowFloodTimerIncrease[_colorSwapCount];
+                _snowFloodTimerMax = (LevelParameters.SnowFloodMainTimer - LevelParameters.SnowFloodTimerIncrease[_colorSwapCount]);
+            }
+        }
+
+        private void HandleCollectiblePicked()
+        {
+            //_currentScore += _scoreBonus;
+
+            _currentSnowFlood -= 10;
+            if (_currentSnowFlood < 0)
+            {
+                _currentSnowFlood = 0;
             }
         }
     }

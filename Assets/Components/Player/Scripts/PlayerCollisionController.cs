@@ -30,7 +30,7 @@ public class PlayerCollisionController : MonoBehaviour
         {
             if (_hitResults[0].transform.CompareTag("Collectible"))
             {
-                GameEventService.OnCollectiblePicked?.Invoke();
+                GameEventService.OnScoreCollectiblePicked?.Invoke();
                 Destroy(_hitResults[0].gameObject);
             }
             else

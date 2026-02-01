@@ -26,7 +26,11 @@ namespace Components.Data
 
         [Header("Chunk Colors")]
         [SerializeField] private List<Material> _chunkMaterial;
+        [SerializeField] private Material _chunkStartColor;
         [SerializeField] private int _maxColorSwapCount = 3;
+
+        [Header("Collectible Parameters")]
+        [SerializeField] private List<float> _scoreBonus;
 
         // Reminder : it's a getter which allow reading but not modifying the value.
         public List<float> Speed => _speed;
@@ -42,6 +46,9 @@ namespace Components.Data
 
         public List<Material> ChunkMaterial => _chunkMaterial;
         public int MaxColorSwapCount => _maxColorSwapCount;
+        public Material ChunkStartColor => _chunkStartColor;
+
+        public List<float> ScoreBonus => _scoreBonus;
 
         // Is possible to modify dynamically the value thanks to a method with parameters in the scriptable object.
     }

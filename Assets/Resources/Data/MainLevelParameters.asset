@@ -16,21 +16,29 @@ MonoBehaviour:
   - 10
   - 15
   - 20
-  _updateColorChunkTimerInterval: 60
+  _updateColorChunkTimerInterval: 10
   _updateFOV:
+  - 90
   - 85
   - 80
   - 75
-  _updatePointMultiplicator: 190000003200000064000000
+  _updatePointMultiplicator: 0a000000190000003200000064000000
   _snowFlood: 0
-  _snowFloodImpact: 000000000000000000000000
+  _snowFloodImpact: 050000000a000000140000001e000000
   _snowFloodMainTimer: 10
   _snowFloodTimerIncrease:
   - 2
   - 4
   - 6
+  - 8
   _chunkMaterial:
   - {fileID: 2100000, guid: 321d75702478cd04d85714c2abb3051b, type: 2}
   - {fileID: 2100000, guid: 098267358a76cbe418e752488a6144df, type: 2}
   - {fileID: 2100000, guid: c8a5afeef27a4be4a994936a8fe53d07, type: 2}
+  _chunkStartColor: {fileID: 2100000, guid: 5014b48435afb7e4f80de4b8e665bc3a, type: 2}
   _maxColorSwapCount: 3
+  _scoreBonus:
+  - 40
+  - 100
+  - 200
+  - 400

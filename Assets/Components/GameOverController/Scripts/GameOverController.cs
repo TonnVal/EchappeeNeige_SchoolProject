@@ -27,8 +27,20 @@ public class GameOverController : MonoBehaviour
         {
             saveData = new SaveData();
         }
-        saveData.Score = finalScore;
-        SaveService.Save(saveData);
+        else
+        {
+            var actualBestScore = saveData.Score;
+
+            if (actualBestScore > finalScore)
+            {
+                return;
+            }
+            else
+            {
+                saveData.Score = finalScore;
+                SaveService.Save(saveData);
+            }  
+        }    
     }
 
     public void BackToMainMenu()

@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 427117942}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -626,6 +626,7 @@ MonoBehaviour:
   _translationSpeed: 5
   _activeChunksCount: 5
   _behindChunksCount: 1
+  _preventSameChunkGeneration: 1
   _chunkPrefabs:
   - {fileID: 2845556255692494713, guid: 40d9d4c5ba045904faf072a6cc8d9054, type: 3}
   - {fileID: 2845556255692494713, guid: cf882d95f3bc56249bfe06d219df6227, type: 3}
