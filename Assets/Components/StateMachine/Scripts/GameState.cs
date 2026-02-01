@@ -39,8 +39,8 @@ namespace Components.StateMachine
 
         public override void Update()
         {
-            GameEventService.OnScoreIncrease?.Invoke(_currentScore);
             GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
+            GameEventService.OnScoreIncrease?.Invoke(_currentScore);
             
             _snowFloodTimer += Time.deltaTime;
             if (_snowFloodTimer >= _snowFloodTimerMax)
@@ -85,17 +85,17 @@ namespace Components.StateMachine
         public override void Exit()
         {
             Debug.Log("Exiting Game State");
-            _currentSnowFlood = 0;
             GameEventService.OnScoreIncrease -= ScoreIncreasing;
             GameEventService.OnCollision -= HandleCollision;
             GameEventService.OnPlayerBrake -= SnowFloodTimerDivisor;
             GameEventService.OnGameState?.Invoke(false);
         }
         
-        private void ScoreIncreasing(float obj)
+        private void ScoreIncreasing(float currentScore)
         {
             _currentTime += Time.deltaTime;
             _currentScore = _currentTime * _currentMultiplicator;
+            currentScore = _currentScore;
         }
 
         private void HandleCollision()
@@ -106,6 +106,8 @@ namespace Components.StateMachine
 
             if (_currentSnowFlood >= _snowFloodMax)
             {
+                _currentScore = _currentScore;
+                GameEventService.OnFinalScore?.Invoke(_currentScore);
                 StateMachine.ChangeState(new GameOverState(StateMachine, LevelParameters));
             }
         }

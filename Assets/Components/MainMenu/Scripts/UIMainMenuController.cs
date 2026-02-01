@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class UIMenuController : MonoBehaviour
 {
-    private void Start()
-    {
-        var save = new SaveData();
-        
-        SaveService.Save(save);
-    }
-
     public void PlayGame()
     {
+        if (!SaveService.LoadSave(out SaveData saveData))
+        {
+            saveData = new SaveData();
+        }
+
+        SaveService.Save(saveData);
+        
         SceneLoarderService.LoadLevel();
     }
 

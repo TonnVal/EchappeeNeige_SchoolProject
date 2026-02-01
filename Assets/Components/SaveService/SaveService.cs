@@ -9,27 +9,29 @@ public static class SaveService
     private static string FilePath => Path.Combine(Application.persistentDataPath, FILE_NAME);
 
     // Write the save located in the Filepath path.
-    // Using T as a type make SaveService generic, avoiding any error.
-    public static void Save<T>(T saveData)
+    public static void Save(SaveData saveData)
     {
         string json = JsonUtility.ToJson(saveData);
         File.WriteAllText(FilePath, json);
+
         Debug.Log("Player data save at " + FilePath);
     }
 
     // Read the save located in the FilePath path.
-    public static T LoadSave<T>()
+    public static bool LoadSave(out SaveData saveData)
     {
         string json = File.ReadAllText(FilePath);
 
         if (string.IsNullOrEmpty(json))
         {
             Debug.LogError("Save data not found at " + FilePath);
-            return default;
+            saveData = null;
+            return false;
         }
 
-        var result = JsonUtility.FromJson<T>(json);
-
-        return result;
+        var result = JsonUtility.FromJson<SaveData>(json);
+        saveData = result;
+        
+        return true;
     }
 }

@@ -14,6 +14,7 @@ public static class GameEventService
 
     public static Action<float> OnScoreIncrease;
     public static Action<int> OnScoreMultiplicatorUpdated;
+    public static Action<float> OnFinalScore;
 
     public static Action<float> OnSnowFloodUpdated;
     public static Action<float> OnSpeedUpdated;

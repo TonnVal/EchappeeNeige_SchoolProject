@@ -4,5 +4,5 @@ using System;
 public class SaveData
 {
     public string PlayerName;
-    public int Score;
+    public float Score;
 }
