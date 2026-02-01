@@ -9,6 +9,7 @@ public static class GameEventService
     public static Action<bool> OnGameOver;
 
     public static Action OnCollision;
+    public static Action OnCollectiblePicked;
     public static Action<Material> OnChunkChangeColor;
     public static Action<float> OnFieldOfViewUpdated;
 
