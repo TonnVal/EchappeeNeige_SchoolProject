@@ -16,7 +16,7 @@ MonoBehaviour:
   - 10
   - 15
   - 20
-  _updateColorChunkTimerInterval: 10
+  _updateColorChunkTimerInterval: 60
   _updateFOV:
   - 90
   - 85

@@ -104,7 +104,6 @@ namespace Components.StateMachine
         {
             _currentTime += Time.deltaTime;
             _currentScore = _currentTime * _currentMultiplicator;
-            currentScore = _currentScore;
         }
 
         private void HandleCollision()
@@ -115,8 +114,8 @@ namespace Components.StateMachine
 
             if (_currentSnowFlood >= _snowFloodMax)
             {
-                _currentScore = _currentScore;
-                GameEventService.OnFinalScore?.Invoke(_currentScore);
+                var finalScore = _currentScore;
+                GameEventService.OnFinalScore?.Invoke(finalScore);
                 StateMachine.ChangeState(new GameOverState(StateMachine, LevelParameters));
             }
         }
@@ -135,7 +134,7 @@ namespace Components.StateMachine
 
         private void HandleCollectiblePicked()
         {
-            //_currentScore += _scoreBonus;
+            _currentScore += _scoreBonus;
 
             _currentSnowFlood -= 10;
             if (_currentSnowFlood < 0)

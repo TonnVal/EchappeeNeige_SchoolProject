@@ -44,12 +44,12 @@ public class ObstaclesGenerator : MonoBehaviour
     {   
         if (slowDown && !_isSlow)
         {
-            _translationSpeed = _translationSpeed / 2;
+            _translationSpeed /= 2;
             _isSlow = true;
         }
         else if (!slowDown && _isSlow)
         {
-            _translationSpeed = _translationSpeed * 2;
+            _translationSpeed *= 2;
             _isSlow = false;
         }
     }
