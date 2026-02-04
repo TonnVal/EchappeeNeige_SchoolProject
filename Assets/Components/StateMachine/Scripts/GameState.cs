@@ -1,7 +1,8 @@
+using Components.Data;
 using System;
 using System.Collections;
-using Components.Data;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace Components.StateMachine
 {
@@ -13,7 +14,6 @@ namespace Components.StateMachine
         private float _snowFloodTimer;
         private float _snowFloodTimerMax;
 
-        private float _currentTime = 0f;
         private float _currentScore = 0f;
         private int _currentMultiplicator;
 
@@ -23,11 +23,10 @@ namespace Components.StateMachine
         private float _scoreBonus;
         
         public GameState(StateMachine stateMachine, SOLevelParameters levelParameters) : base(stateMachine, levelParameters) { }
-
+        
         public override void Enter()
         {
             GameEventService.OnGameState?.Invoke(true);
-            GameEventService.OnScoreIncrease += ScoreIncreasing;
             GameEventService.OnCollision += HandleCollision;
             GameEventService.OnPlayerBrake += SnowFloodTimerDivisor;
             GameEventService.OnScoreCollectiblePicked += HandleCollectiblePicked;
@@ -44,9 +43,11 @@ namespace Components.StateMachine
 
         public override void Update()
         {
-            GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
+            _currentScore += Time.deltaTime * _currentMultiplicator;
             GameEventService.OnScoreIncrease?.Invoke(_currentScore);
-            
+
+            GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
+
             _snowFloodTimer += Time.deltaTime;
             if (_snowFloodTimer >= _snowFloodTimerMax)
             {
@@ -93,17 +94,10 @@ namespace Components.StateMachine
         public override void Exit()
         {
             Debug.Log("Exiting Game State");
-            GameEventService.OnScoreIncrease -= ScoreIncreasing;
             GameEventService.OnCollision -= HandleCollision;
             GameEventService.OnPlayerBrake -= SnowFloodTimerDivisor;
             GameEventService.OnScoreCollectiblePicked -= HandleCollectiblePicked;
             GameEventService.OnGameState?.Invoke(false);
-        }
-        
-        private void ScoreIncreasing(float currentScore)
-        {
-            _currentTime += Time.deltaTime;
-            _currentScore = _currentTime * _currentMultiplicator;
         }
 
         private void HandleCollision()
