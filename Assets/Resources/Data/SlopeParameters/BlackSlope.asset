@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b79bbd15b8c7a48b0f5ee1d2cd5048, type: 3}
+  m_Name: BlackSlope
+  m_EditorClassIdentifier: Assembly-CSharp::Components.Data.SOSlopeParameters
+  _chunkMaterial: {fileID: 0}
+  _speed: 20
+  _updateFOV: 75
+  _scoreMultiplicator: 100
+  _obstacleCollisionValue: 30
+  _snowFloodIncreaseTimer: 2

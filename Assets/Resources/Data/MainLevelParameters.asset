@@ -11,34 +11,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a8a3602873e38941bd035e2caa98134, type: 3}
   m_Name: MainLevelParameters
-  m_EditorClassIdentifier: Assembly-CSharp::Components.Data.SOLevelParameters
-  _speed:
-  - 10
-  - 15
-  - 20
-  _updateColorChunkTimerInterval: 60
-  _updateFOV:
-  - 90
-  - 85
-  - 80
-  - 75
-  _updatePointMultiplicator: 0a000000190000003200000064000000
-  _snowFlood: 0
-  _snowFloodImpact: 050000000a000000140000001e000000
-  _snowFloodMainTimer: 10
-  _snowFloodTimerIncrease:
-  - 2
-  - 4
-  - 6
-  - 8
-  _chunkMaterial:
-  - {fileID: 2100000, guid: 321d75702478cd04d85714c2abb3051b, type: 2}
-  - {fileID: 2100000, guid: 098267358a76cbe418e752488a6144df, type: 2}
-  - {fileID: 2100000, guid: c8a5afeef27a4be4a994936a8fe53d07, type: 2}
-  _chunkStartColor: {fileID: 2100000, guid: 5014b48435afb7e4f80de4b8e665bc3a, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::SOLevelParameters
+  _updateColorChunkTimerInterval: 10
   _maxColorSwapCount: 3
-  _scoreBonus:
-  - 40
-  - 100
-  - 200
-  - 400
+  _currentSlope:
+  - {fileID: 11400000, guid: d80261fb680a68c4f8d0ec3745301d56, type: 2}
+  - {fileID: 11400000, guid: d84566e35bc64454ca308fc3cde57b1d, type: 2}
+  - {fileID: 11400000, guid: f66596346ab8d2a4692f1ab1da4fa01e, type: 2}
+  - {fileID: 11400000, guid: c0b7d0a9e54e30645b4172a8788b4066, type: 2}

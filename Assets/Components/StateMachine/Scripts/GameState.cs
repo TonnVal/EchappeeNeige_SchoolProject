@@ -1,92 +1,70 @@
 using Components.Data;
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 namespace Components.StateMachine
 {
     public class GameState : State
     {
-        private float _currentSnowFlood;
-        private float _snowFloodMax = 100f;
-        private int _snowFloodImpactValue = 5;
-        private float _snowFloodTimer;
-        private float _snowFloodTimerMax;
-
-        private float _currentScore = 0f;
-        private int _currentMultiplicator;
+        public GameState(StateMachine stateMachine, SOLevelParameters levelParameters) : base(stateMachine, levelParameters) { }
 
         private float _chunkTimer;
-        private int _colorSwapCount;
-
-        private float _scoreBonus;
+        private int _slopeSwapCount = 0;
         
-        public GameState(StateMachine stateMachine, SOLevelParameters levelParameters) : base(stateMachine, levelParameters) { }
+        private SOSlopeParameters slopeParameters;
+        private int _scoreMultiplicator;
+        private int _obstacleCollisionValue;
+        private float _snowFloodIncreaseTimer;
+
+        private float _currentScore = 0;
+        private int _currentSnowFlood = 0;
+        private float _currentSnowFloodTimer = 0;
+        private int _maxSnowFlood = 100;
+            
         
         public override void Enter()
         {
+            slopeParameters = (SOSlopeParameters)LevelParameters.CurrentSlope[_slopeSwapCount];
+            _scoreMultiplicator = slopeParameters.ScoreMultiplicator;
+            _obstacleCollisionValue = slopeParameters.ObstacleCollisionValue;
+            _snowFloodIncreaseTimer = slopeParameters.SnowFloodIncreaseTimer;
+            
             GameEventService.OnGameState?.Invoke(true);
             GameEventService.OnCollision += HandleCollision;
             GameEventService.OnPlayerBrake += SnowFloodTimerDivisor;
-            GameEventService.OnScoreCollectiblePicked += HandleCollectiblePicked;
-
-            _currentSnowFlood = 0f;
-
-            _currentMultiplicator = 10;
-
-            _chunkTimer = 0;
-            _snowFloodTimer = 0;
-
-            _scoreBonus = 40;
         }
 
         public override void Update()
         {
-            _currentScore += Time.deltaTime * _currentMultiplicator;
+            _currentScore += Time.deltaTime * _scoreMultiplicator;
             GameEventService.OnScoreIncrease?.Invoke(_currentScore);
 
-            GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
-
-            _snowFloodTimer += Time.deltaTime;
-            if (_snowFloodTimer >= _snowFloodTimerMax)
+            _currentSnowFloodTimer += Time.deltaTime;
+            if (_currentSnowFloodTimer >= _snowFloodIncreaseTimer)
             {
-                _currentSnowFlood++;
-                _snowFloodTimer = 0;
+                _currentSnowFlood ++;
+                _currentSnowFloodTimer = 0;
             }
-
-            if (_colorSwapCount >= LevelParameters.MaxColorSwapCount)
+            GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
+            
+            if (_slopeSwapCount >= LevelParameters.MaxColorSwapCount)
             {
                 return;
             }
-
+            
             _chunkTimer += Time.deltaTime;
-            if (_chunkTimer > LevelParameters.UpdateColorChunkTimerInterval)
+            if (_chunkTimer >= LevelParameters.UpdateColorChunkTimerInterval)
             {
-                var material = LevelParameters.ChunkMaterial[_colorSwapCount];
-                GameEventService.OnChunkChangeColor?.Invoke(material);
-                PersistentData.CurrentChunkMaterial = material;
+                slopeParameters = (SOSlopeParameters)LevelParameters.CurrentSlope[_slopeSwapCount];
 
-                var speed = LevelParameters.Speed[_colorSwapCount];
-                GameEventService.OnSpeedUpdated?.Invoke(speed);
+                _scoreMultiplicator = slopeParameters.ScoreMultiplicator;
+                _obstacleCollisionValue = slopeParameters.ObstacleCollisionValue;
+                _snowFloodIncreaseTimer = slopeParameters.SnowFloodIncreaseTimer;
+                
+                GameEventService.OnChunkChangeColor?.Invoke(slopeParameters.ChunkMaterial);
+                GameEventService.OnSpeedUpdated?.Invoke(slopeParameters.Speed);
+                GameEventService.OnFieldOfViewUpdated?.Invoke(slopeParameters.UpdateFOV);
 
-                var multiplicator = LevelParameters.UpdatePointScred[_colorSwapCount];
-                GameEventService.OnScoreMultiplicatorUpdated?.Invoke(multiplicator);
-
-                var impactValue = LevelParameters.SnowFloodImpact[_colorSwapCount];
-
-                var snowFloodTimerIncrease = LevelParameters.SnowFloodTimerIncrease[_colorSwapCount];
-
-                var fov = LevelParameters.UpdateFOV[_colorSwapCount];
-                GameEventService.OnFieldOfViewUpdated?.Invoke(fov);
-
-                var scoreBonus = LevelParameters.ScoreBonus[_colorSwapCount];
-
-                _currentMultiplicator = multiplicator;
-                _snowFloodImpactValue = impactValue;
-                _scoreBonus = scoreBonus;
-
-                _colorSwapCount++;
+                _slopeSwapCount++;
                 _chunkTimer = 0;
             }
         }
@@ -96,20 +74,15 @@ namespace Components.StateMachine
             Debug.Log("Exiting Game State");
             GameEventService.OnCollision -= HandleCollision;
             GameEventService.OnPlayerBrake -= SnowFloodTimerDivisor;
-            GameEventService.OnScoreCollectiblePicked -= HandleCollectiblePicked;
             GameEventService.OnGameState?.Invoke(false);
         }
 
         private void HandleCollision()
         {
-            _currentSnowFlood += _snowFloodImpactValue;
-            Debug.Log($"New SnowFlood value = {_currentSnowFlood}");
-            GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
+            _currentSnowFlood += _obstacleCollisionValue;
 
-            if (_currentSnowFlood >= _snowFloodMax)
+            if (_currentSnowFlood >= _maxSnowFlood)
             {
-                var finalScore = _currentScore;
-                GameEventService.OnFinalScore?.Invoke(finalScore);
                 StateMachine.ChangeState(new GameOverState(StateMachine, LevelParameters));
             }
         }
@@ -118,22 +91,11 @@ namespace Components.StateMachine
         {
             if (slowDown)
             {
-                _snowFloodTimerMax = (LevelParameters.SnowFloodMainTimer - LevelParameters.SnowFloodTimerIncrease[_colorSwapCount]) / 2;
+                _snowFloodIncreaseTimer = slopeParameters.SnowFloodIncreaseTimer / 2;
             }
             else
             {
-                _snowFloodTimerMax = (LevelParameters.SnowFloodMainTimer - LevelParameters.SnowFloodTimerIncrease[_colorSwapCount]);
-            }
-        }
-
-        private void HandleCollectiblePicked()
-        {
-            _currentScore += _scoreBonus;
-
-            _currentSnowFlood -= 10;
-            if (_currentSnowFlood < 0)
-            {
-                _currentSnowFlood = 0;
+                _snowFloodIncreaseTimer = slopeParameters.SnowFloodIncreaseTimer;
             }
         }
     }

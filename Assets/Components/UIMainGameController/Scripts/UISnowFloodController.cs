@@ -12,9 +12,6 @@ public class UISnowFloodController : MonoBehaviour
 
     private void Start()
     {
-        var parameters = ScriptableObjectDataBase.GetByName("MainLevelParameters");
-
-        SetSnowFlood(parameters.SnowFlood);
         GameEventService.OnSnowFloodUpdated += SetSnowFlood;
     }
 
