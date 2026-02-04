@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Components.Data;
-using Components.SODB;
 using UnityEngine;
 
 public class ObstaclesGenerator : MonoBehaviour
@@ -25,9 +23,6 @@ public class ObstaclesGenerator : MonoBehaviour
 
     private void Start()
     {
-        var parameters = ScriptableObjectDataBase.Get<SOLevelParameters>("MainLevelParameters");
-        HandleSpeedUpdated(PersistentData.CurrentSpeed);
-        
         AddBaseChunk();
         GameEventService.OnGameState += HandleGameState;
         GameEventService.OnSpeedUpdated += HandleSpeedUpdated;

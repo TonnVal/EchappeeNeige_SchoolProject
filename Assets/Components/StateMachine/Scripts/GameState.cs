@@ -36,7 +36,6 @@ namespace Components.StateMachine
 
         public override void Update()
         {
-            Debug.Log(slopeParameters);
             _currentScore += Time.deltaTime * _scoreMultiplicator;
             GameEventService.OnScoreIncrease?.Invoke(_currentScore);
 
@@ -85,8 +84,10 @@ namespace Components.StateMachine
 
             if (_currentSnowFlood >= _maxSnowFlood)
             {
+                GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
                 StateMachine.ChangeState(new GameOverState(StateMachine, LevelParameters));
             }
+
         }
 
         private void SnowFloodTimerDivisor(bool slowDown)

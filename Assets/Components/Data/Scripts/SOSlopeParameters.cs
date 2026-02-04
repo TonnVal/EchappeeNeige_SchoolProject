@@ -17,7 +17,10 @@ namespace Components.Data
 
         [Header("Snow Flood Parameters")]
         [SerializeField] private int _obstacleCollisionValue;
-        [SerializeField] private float _snowFloodIncreaseTimer = 8f;
+        [SerializeField] private float _snowFloodIncreaseTimer;
+
+        [Header("Collectible Parameters")]
+        [SerializeField] private int _scoreBonus;
 
         public Material ChunkMaterial => _chunkMaterial;
         public float Speed => _speed;

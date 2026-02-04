@@ -23,7 +23,6 @@ public class ChunkController : MonoBehaviour
     private void Start()
     {
         GameEventService.OnChunkChangeColor += HandleChunkColorUpdated;
-        HandleChunkColorUpdated(PersistentData.CurrentChunkMaterial);
 
         if (_spawnChance != 0)
         {
