@@ -1,4 +1,5 @@
 using Components.Data;
+using Components.SODB;
 using UnityEngine;
 
 namespace Components.StateMachine
@@ -23,7 +24,7 @@ namespace Components.StateMachine
         
         public override void Enter()
         {
-            slopeParameters = (SOSlopeParameters)LevelParameters.CurrentSlope[_slopeSwapCount];
+            slopeParameters = ScriptableObjectDataBase.Get<SOSlopeParameters>("GreenSlope");
             _scoreMultiplicator = slopeParameters.ScoreMultiplicator;
             _obstacleCollisionValue = slopeParameters.ObstacleCollisionValue;
             _snowFloodIncreaseTimer = slopeParameters.SnowFloodIncreaseTimer;
@@ -35,6 +36,7 @@ namespace Components.StateMachine
 
         public override void Update()
         {
+            Debug.Log(slopeParameters);
             _currentScore += Time.deltaTime * _scoreMultiplicator;
             GameEventService.OnScoreIncrease?.Invoke(_currentScore);
 

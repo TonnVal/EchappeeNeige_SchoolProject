@@ -1,4 +1,5 @@
-﻿using Components.SODB;
+﻿using Components.Data;
+using Components.SODB;
 using UnityEngine;
 
 namespace Components.StateMachine
@@ -10,7 +11,7 @@ namespace Components.StateMachine
         // Create an instance for StateMachine.
         private void Start()
         {
-            var parameters = ScriptableObjectDataBase.GetByName("MainLevelParameters");
+            var parameters = ScriptableObjectDataBase.Get<SOLevelParameters>("MainLevelParameters");
             
             _stateMachine = new StateMachine();
             // Change here to give another start to state machine.

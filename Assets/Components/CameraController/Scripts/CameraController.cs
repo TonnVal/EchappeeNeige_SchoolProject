@@ -1,15 +1,15 @@
+using Components.SODB;
 using System;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private float _startFieldOfView = 90;
     [SerializeField] private Camera _camera;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _camera.fieldOfView = _startFieldOfView;
+        _camera.fieldOfView = 90f;
         GameEventService.OnFieldOfViewUpdated += UpdateFOV;
     }
     private void OnDestroy()
@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
     }
 
     private void UpdateFOV(float fov)
-    {  
+    {
         _camera.fieldOfView = fov;
     }
 }

@@ -15,7 +15,6 @@ MonoBehaviour:
   _updateColorChunkTimerInterval: 10
   _maxColorSwapCount: 3
   _currentSlope:
-  - {fileID: 11400000, guid: d80261fb680a68c4f8d0ec3745301d56, type: 2}
   - {fileID: 11400000, guid: d84566e35bc64454ca308fc3cde57b1d, type: 2}
   - {fileID: 11400000, guid: f66596346ab8d2a4692f1ab1da4fa01e, type: 2}
   - {fileID: 11400000, guid: c0b7d0a9e54e30645b4172a8788b4066, type: 2}

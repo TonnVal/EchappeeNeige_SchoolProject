@@ -1,14 +1,16 @@
 // Watch out about call order of using !
 // Using Components.Data before System.Collections.Generic can create bug here.
+using System;
 using System.Collections.Generic;
 using Components.Data;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Components.SODB
 {
     public static class ScriptableObjectDataBase
     {
-        private static readonly Dictionary<string, SOLevelParameters> DATABASE = new();
+        private static readonly Dictionary<Type, Dictionary<string, Object>> SO_DATABASE = new();
 
         // Syntax for calling the following method just before the game start.
         // It's necessary because we have desactivated the domain reload in Unity settings.
@@ -18,28 +20,70 @@ namespace Components.SODB
         // But if a member of a static construcor is called, the constructor is called too before return a value.
         private static void Initialize()
         {
-            DATABASE.Clear();
+            Debug.Log("Initializing ScriptableObjectDataBase...");
 
-            // Loading assets from a path in all Unity's project.
-            // Here, script look in all paths that contain "Data".
-            var scriptableObjects = Resources.LoadAll<SOLevelParameters>("Data");
-            
-            foreach (var scriptableObject in scriptableObjects)
+            SO_DATABASE.Clear();
+            RegisterLevelParameters<SOLevelParameters>();
+            RegisterSlopeParameters<SOSlopeParameters>();
+        }
+
+        private static void RegisterLevelParameters<T>() where T : Object
+        {
+            var type = typeof(T);
+
+            if (SO_DATABASE.ContainsKey(type))
             {
-                DATABASE.Add(scriptableObject.name, scriptableObject);
+                Debug.LogWarning($"ScriptableObject with name {type.Name} already exists in database.");
+                return;
             }
+
+            SO_DATABASE[type] = new Dictionary<string, Object>();
+
+            T[] templates = Resources.LoadAll<T>("");
+            foreach (var template in templates)
+            {
+                SO_DATABASE[type][template.name] = template;
+            }
+
+            Debug.Log($"[DATABASE] Loaded {templates.Length} {type.Name}(s)");
+        }
+
+        private static void RegisterSlopeParameters<T>() where T : Object
+        {
+            var type = typeof(T);
+
+            if (SO_DATABASE.ContainsKey(type))
+            {
+                Debug.LogWarning($"ScriptableObject with name {type.Name} already exists in database.");
+                return;
+            }
+
+            SO_DATABASE[type] = new Dictionary<string, Object>();
+
+            T[] templates = Resources.LoadAll<T>("");
+            foreach (var template in templates)
+            {
+                SO_DATABASE[type][template.name] = template;
+            }
+
+            Debug.Log($"[DATABASE] Loaded {templates.Length} {type.Name}(s)");
         }
 
         // Method that get a SOLevelParamters.
         // Security if a SOLevelParamter's name not found.
-        public static SOLevelParameters GetByName(string name)
+        public static T Get<T>(string name) where T : Object
         {
-            if (DATABASE.TryGetValue(name, out SOLevelParameters levelParameters))
+            var type = typeof(T);
+
+            if (SO_DATABASE.TryGetValue(type, out var typeDictionary))
             {
-                return levelParameters;
+                if (typeDictionary.TryGetValue(name, out var scriptableObject))
+                {
+                    return scriptableObject as T;
+                }
             }
 
-            Debug.LogWarning($"ScriptableObject with name {name} not found in database.");
+            Debug.LogError("Unable to find a scriptable object with name: " + name + " of type " + type);
             return null;
         }
     }
