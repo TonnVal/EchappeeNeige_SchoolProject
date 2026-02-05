@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8a3602873e38941bd035e2caa98134, type: 3}
   m_Name: MainLevelParameters
   m_EditorClassIdentifier: Assembly-CSharp::SOLevelParameters
-  _updateColorChunkTimerInterval: 10
+  _updateColorChunkTimerInterval: 60
   _maxColorSwapCount: 3
   _currentSlope:
   - {fileID: 11400000, guid: d84566e35bc64454ca308fc3cde57b1d, type: 2}
@@ -24,5 +24,5 @@ MonoBehaviour:
   _shieldCollectibleSpawnChance: 25
   _speedCollectiblePrefab: {fileID: 11400000, guid: e173bde3b091abe4fbc7a26c746bf297, type: 2}
   _speedCollectibleSpawnChance: 100
-  _snowFloodDownCollectiblePrefab: {fileID: 0}
+  _snowFloodDownCollectiblePrefab: {fileID: 11400000, guid: c2bf1596b3c7535499c593b6b1a75780, type: 2}
   _snowFloodDownSpawnChance: 50

@@ -224,13 +224,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 187370f053ff1284292a89e90a2fdc55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollisionController
-  _sphereStandCenter: {x: 0, y: 1.5, z: -1}
-  _sphereStandRadius: 1
-  _sphereCrouchStandCenter: {x: 0, y: 0.3, z: -1.5}
-  _sphereCrouchStandRadius: 0.1
+  _cubeStandCenter: {x: 0, y: 1, z: -0.5}
+  _cubeStandRadius: {x: 1, y: 1, z: 1}
+  _cubeCrouchStandCenter: {x: 0, y: 0.4, z: -0.5}
+  _cubeCrouchStandRadius: {x: 1, y: 0.4, z: 1}
+  _shieldActivaded: 0
+  _shieldDuration: 10
   _isHit: 0
-  _currentSphereCenter: {x: 0, y: 0, z: 0}
-  _currentSphereRadius: 0
+  _currentCubeCenter: {x: 0, y: 0, z: 0}
+  _currentCubeRadius: {x: 0, y: 0, z: 0}
 --- !u!1 &650956320
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e716e8fef416ab46875a5b2fd6c7272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  _startFieldOfView: 90
   _camera: {fileID: 1435189783}
 --- !u!1 &1473439333
 GameObject:
@@ -627,6 +628,9 @@ MonoBehaviour:
   _activeChunksCount: 5
   _behindChunksCount: 1
   _preventSameChunkGeneration: 1
+  _boost: 0
+  _boostDuration: 10
+  _boostValue: 1.5
   _chunkPrefabs:
   - {fileID: 2845556255692494713, guid: 40d9d4c5ba045904faf072a6cc8d9054, type: 3}
   - {fileID: 2845556255692494713, guid: cf882d95f3bc56249bfe06d219df6227, type: 3}

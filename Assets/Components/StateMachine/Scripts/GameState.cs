@@ -68,6 +68,8 @@ namespace Components.StateMachine
                 GameEventService.OnSpeedUpdated?.Invoke(slopeParameters.Speed);
                 GameEventService.OnFieldOfViewUpdated?.Invoke(slopeParameters.UpdateFOV);
 
+                PersistentData.CurrentChunkMaterial = slopeParameters.ChunkMaterial;
+
                 _slopeSwapCount++;
                 _chunkTimer = 0;
             }

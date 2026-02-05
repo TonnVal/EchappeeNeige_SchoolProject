@@ -23,7 +23,8 @@ public class GameOverController : MonoBehaviour
 
     public void FinalScore(float finalScore)
     {
-
+        GameEventService.OnChunkChangeColor?.Invoke(PersistentData.CurrentChunkMaterial);
+        GameEventService.OnSnowFloodUpdated?.Invoke(PersistentData.startSnowFlood);
 
         if (!SaveService.LoadSave(out SaveData saveData))
         {

@@ -9,7 +9,6 @@ public static class GameEventService
     public static Action<bool> OnGameOver;
 
     public static Action OnScoreCollectiblePicked;
-    public static Action OnShieldCollectiblePicked;
     public static Action OnSpeedCollectiblePicked;
     public static Action OnSnowFloodDownCollectiblePicked;
 
