@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653ac19ea1b85d44b9ffdbc305650ee6, type: 3}
   m_Name: SpeedCollectible
   m_EditorClassIdentifier: Assembly-CSharp::SOCollectible
-  _collectiblePrefab: {fileID: 0}
+  _collectiblePrefab: {fileID: 2553677324140073964, guid: b579fc7c8e1f7174f94c9ead4a7b78b2, type: 3}

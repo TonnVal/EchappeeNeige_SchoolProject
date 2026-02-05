@@ -4,7 +4,10 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Collectible
+  - ScoreCollectible
+  - ShieldCollectible
+  - SpeedCollectible
+  - SnowFloodDownCollectible
   layers:
   - Default
   - TransparentFX

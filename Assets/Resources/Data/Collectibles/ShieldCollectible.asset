@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653ac19ea1b85d44b9ffdbc305650ee6, type: 3}
   m_Name: ShieldCollectible
   m_EditorClassIdentifier: Assembly-CSharp::SOCollectible
-  _collectiblePrefab: {fileID: 0}
+  _collectiblePrefab: {fileID: 8198299719506182866, guid: dee0cb93465c47d43bffe52327e5d436, type: 3}

@@ -48,6 +48,11 @@ public class PlayerCollisionController : MonoBehaviour
                 GameEventService.OnSpeedCollectiblePicked?.Invoke();
                 Destroy(_hitResults[0].gameObject);
             }
+            else if (_hitResults[0].transform.CompareTag("SnowFloodDownCollectible"))
+            {
+                GameEventService.OnSnowFloodDownCollectiblePicked?.Invoke();
+                Destroy(_hitResults[0].gameObject);
+            }
             else
             {
                 GameEventService.OnCollision?.Invoke();

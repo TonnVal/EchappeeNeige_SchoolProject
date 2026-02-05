@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 653ac19ea1b85d44b9ffdbc305650ee6, type: 3}
-  m_Name: ScoreCollectible
+  m_Name: SnowFloodDownCollectible
   m_EditorClassIdentifier: Assembly-CSharp::SOCollectible
-  _collectiblePrefab: {fileID: 3139866419675180332, guid: 2738c6cd1af39124d9159039aadbda20, type: 3}
+  _collectiblePrefab: {fileID: 0}

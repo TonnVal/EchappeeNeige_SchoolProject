@@ -11,6 +11,7 @@ public static class GameEventService
     public static Action OnScoreCollectiblePicked;
     public static Action OnShieldCollectiblePicked;
     public static Action OnSpeedCollectiblePicked;
+    public static Action OnSnowFloodDownCollectiblePicked;
 
     public static Action OnCollision;
     public static Action<Material> OnChunkChangeColor;

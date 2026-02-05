@@ -163,7 +163,10 @@ public class ObstaclesGenerator : MonoBehaviour
 
     private void HandleBoost()
     {
-        StartCoroutine(Coroutine_HandleBoost());
+        if (!_boost)
+        {
+            StartCoroutine(Coroutine_HandleBoost());
+        }
     }
 
     private IEnumerator Coroutine_HandleBoost()

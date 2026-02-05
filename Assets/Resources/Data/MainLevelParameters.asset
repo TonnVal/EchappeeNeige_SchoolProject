@@ -18,3 +18,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d84566e35bc64454ca308fc3cde57b1d, type: 2}
   - {fileID: 11400000, guid: f66596346ab8d2a4692f1ab1da4fa01e, type: 2}
   - {fileID: 11400000, guid: c0b7d0a9e54e30645b4172a8788b4066, type: 2}
+  _scoreCollectiblePrefab: {fileID: 11400000, guid: b63051c899c52eb4d98299a0d3a00840, type: 2}
+  _scoreCollectibleSpawnChance: 100
+  _shieldCollectiblePrefab: {fileID: 11400000, guid: 5a12cfa5d3bdc2b41b7fcfbf4741fdc2, type: 2}
+  _shieldCollectibleSpawnChance: 25
+  _speedCollectiblePrefab: {fileID: 11400000, guid: e173bde3b091abe4fbc7a26c746bf297, type: 2}
+  _speedCollectibleSpawnChance: 100
+  _snowFloodDownCollectiblePrefab: {fileID: 0}
+  _snowFloodDownSpawnChance: 50
