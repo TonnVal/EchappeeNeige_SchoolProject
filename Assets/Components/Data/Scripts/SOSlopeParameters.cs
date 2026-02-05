@@ -28,5 +28,6 @@ namespace Components.Data
         public int ScoreMultiplicator => _scoreMultiplicator;
         public int ObstacleCollisionValue => _obstacleCollisionValue;
         public float SnowFloodIncreaseTimer => _snowFloodIncreaseTimer;
+        public int ScoreBonus => _scoreBonus;
     }
 }

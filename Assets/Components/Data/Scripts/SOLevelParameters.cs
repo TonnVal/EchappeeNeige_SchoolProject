@@ -15,10 +15,19 @@ namespace Components.Data
         [SerializeField] private int _maxColorSwapCount = 3;
         [SerializeField] private List<ScriptableObject> _currentSlope;
 
+        [Header("Collectible Parameters")]
+        [SerializeField] private ScriptableObject _scoreCollectiblePrefab;
+        [SerializeField] private ScriptableObject _shieldCollectiblePrefab;
+        [SerializeField] private ScriptableObject _speedCollectiblePrefab;
+
         // Reminder : getters allow reading but not modifying the value.
         public float UpdateColorChunkTimerInterval => _updateColorChunkTimerInterval;
         public int MaxColorSwapCount => _maxColorSwapCount;
         public List<ScriptableObject> CurrentSlope => _currentSlope;
+
+        public ScriptableObject ScoreCollectiblePrefab => _scoreCollectiblePrefab;
+        public ScriptableObject ShieldCollectiblePrefab => _shieldCollectiblePrefab;
+        public ScriptableObject SpeedCollectiblePrefab => _speedCollectiblePrefab;
 
         // Is possible to modify dynamically the value thanks to a method with parameters in the scriptable object.
     }

@@ -32,6 +32,7 @@ namespace Components.StateMachine
             GameEventService.OnGameState?.Invoke(true);
             GameEventService.OnCollision += HandleCollision;
             GameEventService.OnPlayerBrake += SnowFloodTimerDivisor;
+            GameEventService.OnScoreCollectiblePicked += HandleScoreCollectible;
         }
 
         public override void Update()
@@ -73,9 +74,11 @@ namespace Components.StateMachine
         public override void Exit()
         {
             Debug.Log("Exiting Game State");
+            GameEventService.OnScoreCollectiblePicked -= HandleScoreCollectible;
             GameEventService.OnCollision -= HandleCollision;
             GameEventService.OnPlayerBrake -= SnowFloodTimerDivisor;
             GameEventService.OnGameState?.Invoke(false);
+
         }
 
         private void HandleCollision()
@@ -100,6 +103,11 @@ namespace Components.StateMachine
             {
                 _snowFloodIncreaseTimer = slopeParameters.SnowFloodIncreaseTimer;
             }
+        }
+
+        private void HandleScoreCollectible()
+        {
+            _currentScore += slopeParameters.ScoreBonus;
         }
     }
 }

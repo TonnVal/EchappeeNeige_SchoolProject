@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 39514785479104964}
   m_Layer: 0
   m_Name: ShieldPrefab
-  m_TagString: Collectible
+  m_TagString: ShieldCollectible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

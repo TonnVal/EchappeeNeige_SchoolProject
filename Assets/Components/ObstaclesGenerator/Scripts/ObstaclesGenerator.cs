@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,11 @@ public class ObstaclesGenerator : MonoBehaviour
     [SerializeField] private int _activeChunksCount = 2;
     [SerializeField] private int _behindChunksCount = 1;
     [SerializeField] private bool _preventSameChunkGeneration = true;
+
+    [Header("Boost Parameters")]
+    [SerializeField] private bool _boost = false;
+    [SerializeField] private float _boostDuration = 10f;
+    [SerializeField] private float _boostValue = 1.5f;
 
     [Header("Prefabs")]
     // Give access to game objects with ChunkController component.
@@ -27,6 +33,7 @@ public class ObstaclesGenerator : MonoBehaviour
         GameEventService.OnGameState += HandleGameState;
         GameEventService.OnSpeedUpdated += HandleSpeedUpdated;
         GameEventService.OnPlayerBrake += HandleSlowDown;
+        GameEventService.OnSpeedCollectiblePicked += HandleBoost;
     }
 
     private void OnDestroy()
@@ -34,6 +41,7 @@ public class ObstaclesGenerator : MonoBehaviour
         GameEventService.OnGameState -= HandleGameState;
         GameEventService.OnSpeedUpdated -= HandleSpeedUpdated;
         GameEventService.OnPlayerBrake -= HandleSlowDown;
+        GameEventService.OnSpeedCollectiblePicked -= HandleBoost;
     }
 
     private void HandleSlowDown(bool slowDown)
@@ -151,5 +159,22 @@ public class ObstaclesGenerator : MonoBehaviour
         {
             AddChunk(LastChunk.EndAnchor.position);
         }
+    }
+
+    private void HandleBoost()
+    {
+        StartCoroutine(Coroutine_HandleBoost());
+    }
+
+    private IEnumerator Coroutine_HandleBoost()
+    {
+        _boost = true;
+        _translationSpeed *= _boostValue;
+
+        yield return new WaitForSeconds(_boostDuration);
+
+        _translationSpeed /= _boostValue;
+        _boost = false;
+        yield return null;
     }
 }

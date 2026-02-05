@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerCollisionController : MonoBehaviour
@@ -5,9 +6,12 @@ public class PlayerCollisionController : MonoBehaviour
     [Header("Sphere Collider Parameters")]
     [SerializeField] private Vector3 _sphereStandCenter;
     [SerializeField] private float _sphereStandRadius;
-
     [SerializeField] private Vector3 _sphereCrouchStandCenter;
     [SerializeField] private float _sphereCrouchStandRadius;
+
+    [Header("Shield")]
+    [SerializeField] private bool _shieldActivaded = false;
+    [SerializeField] private float _shieldDuration = 10f;
 
     [Header("Debug")]
     [SerializeField] private bool _isHit;
@@ -28,9 +32,20 @@ public class PlayerCollisionController : MonoBehaviour
 
         if (_hitCount > 0 && !_isHit)
         {
-            if (_hitResults[0].transform.CompareTag("Collectible"))
+            if (_hitResults[0].transform.CompareTag("ScoreCollectible"))
             {
                 GameEventService.OnScoreCollectiblePicked?.Invoke();
+                Destroy(_hitResults[0].gameObject);
+            }
+            else if (_hitResults[0].transform.CompareTag("ShieldCollectible"))
+            {
+                GameEventService.OnShieldCollectiblePicked?.Invoke();
+                Destroy(_hitResults[0].gameObject);
+                StartCoroutine(Coroutine_HandleShield());
+            }
+            else if (_hitResults[0].transform.CompareTag("SpeedCollectible"))
+            {
+                GameEventService.OnSpeedCollectiblePicked?.Invoke();
                 Destroy(_hitResults[0].gameObject);
             }
             else
@@ -55,15 +70,32 @@ public class PlayerCollisionController : MonoBehaviour
 
     public void OnPlayerCrouch(bool crouch)
     {
-        if (crouch)
+        if (_shieldActivaded)
         {
-            _currentSphereCenter = _sphereCrouchStandCenter;
-            _currentSphereRadius = _sphereCrouchStandRadius;
+            if (crouch)
+            {
+                _currentSphereCenter = _sphereCrouchStandCenter;
+                _currentSphereRadius = _sphereCrouchStandRadius;
+            }
+            else
+            {
+                _currentSphereCenter = _sphereStandCenter;
+                _currentSphereRadius = _sphereStandRadius;
+            }
         }
-        else
-        {
-            _currentSphereCenter = _sphereStandCenter;
-            _currentSphereRadius = _sphereStandRadius;
-        }
+    }
+
+    private IEnumerator Coroutine_HandleShield()
+    {
+        _shieldActivaded = true;
+
+        _currentSphereRadius = 0;
+
+        yield return new WaitForSeconds(_shieldDuration);
+
+        _currentSphereRadius = _sphereStandRadius;
+        
+        _shieldActivaded = false;
+        yield return null;
     }
 }

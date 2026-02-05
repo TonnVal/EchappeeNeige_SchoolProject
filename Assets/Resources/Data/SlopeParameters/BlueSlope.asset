@@ -18,3 +18,4 @@ MonoBehaviour:
   _scoreMultiplicator: 25
   _obstacleCollisionValue: 10
   _snowFloodIncreaseTimer: 6
+  _scoreBonus: 100
