@@ -93,7 +93,7 @@ namespace Components.StateMachine
 
             if (_currentSnowFlood >= _maxSnowFlood)
             {
-                GameEventService.OnSnowFloodUpdated?.Invoke(_currentSnowFlood);
+                GameEventService.OnFinalScore?.Invoke(_currentScore);
                 StateMachine.ChangeState(new GameOverState(StateMachine, LevelParameters));
             }
 

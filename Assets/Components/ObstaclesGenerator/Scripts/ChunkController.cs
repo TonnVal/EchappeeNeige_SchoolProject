@@ -27,6 +27,7 @@ public class ChunkController : MonoBehaviour
     private void Start()
     {
         GameEventService.OnChunkChangeColor += HandleChunkColorUpdated;
+        HandleChunkColorUpdated(PersistentData.CurrentChunkMaterial);
         var levelParameters = ScriptableObjectDataBase.Get<SOLevelParameters>("MainLevelParameters");
 
         _chunk = gameObject.transform;
