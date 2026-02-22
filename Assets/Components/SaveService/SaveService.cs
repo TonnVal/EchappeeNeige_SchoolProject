@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -14,13 +15,24 @@ public static class SaveService
         string json = JsonUtility.ToJson(saveData);
         File.WriteAllText(FilePath, json);
 
-        Debug.Log("Player data save at " + FilePath);
+        Debug.Log("Player data save at " + FilePath + ".");
     }
 
     // Read the save located in the FilePath path.
     public static bool LoadSave(out SaveData saveData)
     {
-        string json = File.ReadAllText(FilePath);
+        string json;
+
+        try
+        {
+            json = File.ReadAllText(FilePath);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Save file not found at " + e);
+            saveData = null;
+            return false;
+        }
 
         if (string.IsNullOrEmpty(json))
         {

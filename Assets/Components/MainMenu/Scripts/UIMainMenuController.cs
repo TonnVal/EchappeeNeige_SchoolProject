@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class UIMenuController : MonoBehaviour
 {
     public void PlayGame()
