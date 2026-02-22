@@ -5,7 +5,6 @@ using UnityEngine;
 public static class SaveService
 {
     private const string FILE_NAME = "save.json";
-    
     // Combine strings and create a path.
     private static string FilePath => Path.Combine(Application.persistentDataPath, FILE_NAME);
 
@@ -29,14 +28,14 @@ public static class SaveService
         }
         catch (Exception e)
         {
-            Debug.LogError("Save file not found at " + e);
+            Debug.Log("Unable to read save file. Details: " + e);
             saveData = null;
             return false;
         }
 
         if (string.IsNullOrEmpty(json))
         {
-            Debug.LogError("Save data not found at " + FilePath);
+            Debug.LogError("No save data found at path: " + FilePath);
             saveData = null;
             return false;
         }

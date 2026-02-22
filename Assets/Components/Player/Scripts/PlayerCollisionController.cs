@@ -12,11 +12,14 @@ public class PlayerCollisionController : MonoBehaviour
     [Header("Shield")]
     [SerializeField] private bool _shieldActivaded = false;
     [SerializeField] private float _shieldDuration = 10f;
+    [SerializeField] private GameObject _shieldVisual;
 
     [Header("Debug")]
     [SerializeField] private bool _isHit;
     [SerializeField] private Vector3 _currentCubeCenter;
     [SerializeField] private Vector3 _currentCubeRadius;
+    [SerializeField] private AudioSource _collectibleClip;
+    [SerializeField] private AudioSource _obstacleClip;
 
     private readonly Collider[] _hitResults = new Collider[1];
 
@@ -32,24 +35,30 @@ public class PlayerCollisionController : MonoBehaviour
 
         if (_hitCount > 0 && !_isHit)
         {
+
+
             if (_hitResults[0].transform.CompareTag("ScoreCollectible"))
             {
                 GameEventService.OnScoreCollectiblePicked?.Invoke();
+                _collectibleClip.Play();
                 Destroy(_hitResults[0].gameObject);
             }
             else if (_hitResults[0].transform.CompareTag("ShieldCollectible"))
             {
+                _collectibleClip.Play();
                 Destroy(_hitResults[0].gameObject);
                 StartCoroutine(Coroutine_HandleShield());
             }
             else if (_hitResults[0].transform.CompareTag("SpeedCollectible"))
             {
                 GameEventService.OnSpeedCollectiblePicked?.Invoke();
+                _collectibleClip.Play();
                 Destroy(_hitResults[0].gameObject);
             }
             else if (_hitResults[0].transform.CompareTag("SnowFloodDownCollectible"))
             {
                 GameEventService.OnSnowFloodDownCollectiblePicked?.Invoke();
+                _collectibleClip.Play();
                 Destroy(_hitResults[0].gameObject);
             }
             else
@@ -60,6 +69,7 @@ public class PlayerCollisionController : MonoBehaviour
                 }
 
                 GameEventService.OnCollision?.Invoke();
+                _obstacleClip.Play();
             }
 
             _isHit = true;
@@ -94,10 +104,12 @@ public class PlayerCollisionController : MonoBehaviour
     private IEnumerator Coroutine_HandleShield()
     {
         _shieldActivaded = true;
+        _shieldVisual.SetActive(true);
 
         yield return new WaitForSeconds(_shieldDuration);
         
         _shieldActivaded = false;
+        _shieldVisual.SetActive(false);
         yield return null;
     }
 }
